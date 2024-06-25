@@ -1,0 +1,122 @@
+{% extends "dbase2.html" %}
+
+{% block bar %}
+
+<div style="display: flex;flex-direction: row">
+<div style="margin-left: 80px; width: 800px; background-color: whitesmoke; padding: 20px;">
+    <div style="border: 1px solid black; padding: 10px; margin-bottom: 20px;">
+        <h2>记录详情</h2>
+        <div style="display: flex; flex-direction: row;">
+            <div style="display: inline-block; width: 40%;">
+                <p><strong>当前时间:</strong> {{ record.current_time }}</p>
+                <p><strong>用户名:</strong> {{ record.username }}</p>
+                <p><strong>医生名称:</strong> {{ record.doctorname }}</p>
+                <p><strong>血压:</strong> {{ record.blood_pressure }}</p>
+                <p><strong>体温:</strong> {{ record.body_temperature }}</p>
+                <p><strong>心率:</strong> {{ record.heart_rate }}</p>
+                <p><strong>血糖:</strong> {{ record.blood_sugar }}</p>
+                <p><strong>体重:</strong> {{ record.body_weight }}</p>
+                <p><strong>身高:</strong> {{ record.body_height }}</p>
+            </div>
+            <div style="display: inline-block; width: 40%;">
+                <p><strong>血氧:</strong> {{ record.blood_oxygen }}</p>
+                <p><strong>是否有症状:</strong> {% if record.no_symptoms %}无{% else %}有{% endif %}</p>
+                <p><strong>头痛:</strong> {% if record.headache %}有{% else %}无{% endif %}</p>
+                <p><strong>发烧:</strong> {% if record.fever %}有{% else %}无{% endif %}</p>
+                <p><strong>咳嗽:</strong> {% if record.cough %}有{% else %}无{% endif %}</p>
+                <p><strong>胸痛:</strong> {% if record.chest_pain %}有{% else %}无{% endif %}</p>
+                <p><strong>腹痛:</strong> {% if record.abdominal_pain %}有{% else %}无{% endif %}</p>
+                <p><strong>恶心:</strong> {% if record.nausea %}有{% else %}无{% endif %}</p>
+                <p><strong>呕吐:</strong> {% if record.vomiting %}有{% else %}无{% endif %}</p>
+                <p><strong>其他症状:</strong> {{ record.other_symptoms }}</p>
+            </div>
+            <div style="display: inline-block; width: 40%;">
+    <p><strong>不均衡饮食:</strong> {% if record.unbalanced_diet %}有{% else %}无{% endif %}</p>
+    <p><strong>睡眠不足:</strong> {% if record.poor_sleep_quality %}有{% else %}无{% endif %}</p>
+    <p><strong>缺乏运动:</strong> {% if record.lack_of_exercise %}有{% else %}无{% endif %}</p>
+    <p><strong>焦虑:</strong> {% if record.anxiety %}有{% else %}无{% endif %}</p>
+    <p><strong>有无药物治疗:</strong> {% if record.medication %}有{% else %}无{% endif %}</p>
+    <p><strong>药物治疗详情:</strong> {{ record.medication_details }}</p>
+</div>
+        </div>
+    </div>
+</div>
+    <div style="width: 550px; height: 400px; margin-left: 50px; background-color: white; margin-top: 15px; padding: 20px;">
+    <form id="healthForm">
+    <div style="font-size: 28px;">诊断区域</div>
+    <div style="margin-bottom: 15px;margin-top: 15px;">
+        <label for="health_diagnosis" style="display: block; font-weight: bold;">健康诊断:</label>
+        <input type="text" id="health_diagnosis" name="health_diagnosis" style="width: 100%; padding: 5px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; font-weight: bold;">是否建议线下就医:</label>
+        <label for="yes">是</label>
+        <input type="radio" id="yes" name="offline_medical_advice" value="yes">
+        <label for="no">否</label>
+        <input type="radio" id="no" name="offline_medical_advice" value="no">
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label for="health_analysis" style="display: block; font-weight: bold;">健康分析:</label>
+        <textarea id="health_analysis" name="health_analysis" style="width: 100%; height: 100px; padding: 5px;"></textarea>
+    </div>
+
+
+    <div style="text-align: center;">
+                <input type="hidden" id="health_record_id" name="health_record_id" value="{{ record.id }}">
+
+        <button type="button" onclick="submitForm()" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">提交</button>
+    </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function submitForm() {
+    // 获取表单数据
+    const healthDiagnosis = document.getElementById('health_diagnosis').value;
+    const offlineMedicalAdviceElement = document.querySelector('input[name="offline_medical_advice"]:checked');
+const healthRecordId = document.getElementById('health_record_id').value;
+        console.log(healthRecordId)
+
+    // 检查是否找到匹配的单选按钮
+    if (offlineMedicalAdviceElement) {
+        const offlineMedicalAdvice = offlineMedicalAdviceElement.value;
+        const healthAnalysis = document.getElementById('health_analysis').value;
+
+        // 创建数据对象
+        const formData = {
+            health_diagnosis: healthDiagnosis,
+            offline_medical_advice: offlineMedicalAdvice,
+            health_analysis: healthAnalysis,
+            health_record_id:healthRecordId
+        };
+        console.log(formData)
+
+        // 发送POST请求
+       axios.post('/submit-form/', formData)
+    .then(response => {
+        // 处理成功响应
+        console.log(response.data);
+
+        // 页面跳转到指定的 URL
+        window.location.href = 'http://127.0.0.1:8000/online_ask/';
+    })
+            .catch(error => {
+                // 处理错误
+                console.error('There was an error!', error);
+
+            });
+    } else {
+        console.error('No offline medical advice option selected.');
+
+    }
+}
+</script>
+</div>
+
+    </div>
+{% endblock %}
+
+{% block main %}
+
+
+{% endblock %}

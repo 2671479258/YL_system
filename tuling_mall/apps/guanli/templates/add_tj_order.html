@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">体检预约</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加体检预约信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="panel-body">
+        <p>
+            预约用户
+            <select name="username">
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            预约类型 <br>
+            <label><input type="radio" name="checkupType" value="普通体检"> 普通体检：100块</label><br>
+            <label><input type="radio" name="checkupType" value="高级体检"> 高级体检：200块</label><br>
+            <label><input type="radio" name="checkupType" value="全面体检"> 全面体检：300块</label>
+        </p>
+
+        <p>
+            预约日期 <input type="date" name="orderDate">
+        </p>
+
+        <p>
+            <label for="detailtime">请选择预约时间：</label>
+            <select id="detailtime" name="orderTime">
+                <optgroup label="上午">
+                    <option value="09:30">上午 9点30分</option>
+                    <option value="10:00">上午 10点</option>
+                    <option value="10:30">上午 10点30分</option>
+                    <option value="11:00">上午 11点</option>
+                    <option value="11:30">上午 11点30分</option>
+                </optgroup>
+                <optgroup label="下午">
+                    <option value="13:30">下午 1点30分</option>
+                    <option value="14:00">下午 2点</option>
+                    <option value="14:30">下午 2点30分</option>
+                    <option value="15:00">下午 3点</option>
+                    <option value="15:30">下午 3点30分</option>
+                    <option value="16:00">下午 4点</option>
+                    <option value="16:30">下午 4点30分</option>
+                    <option value="17:00">下午 5点</option>
+                    <option value="17:30">下午 5点30分</option>
+                </optgroup>
+                <optgroup label="晚上">
+                    <option value="18:30">晚上 6点30分</option>
+                    <option value="19:00">晚上 7点</option>
+                    <option value="19:30">晚上 7点30分</option>
+                    <option value="20:00">晚上 8点</option>
+                    <option value="20:30">晚上 8点30分</option>
+                    <option value="21:00">晚上 9点</option>
+                    <option value="21:30">晚上 9点30分</option>
+                    <option value="22:00">晚上 10点</option>
+                </optgroup>
+            </select>
+        </p>
+
+        <p>
+            预约信息 <input type="text" name="ordertip">
+        </p>
+
+        <p>
+            过敏史 <input type="text" name="allergy" value="无">
+        </p>
+
+        <p>
+            家族遗传病史 <input type="text" name="familyHistory" value="无">
+        </p>
+
+        <p>
+            额外信息 <textarea name="additionalInfo"></textarea>
+        </p>
+
+        <p>
+            X光 <input type="checkbox" name="xRay">
+        </p>
+
+        <p>
+            血液检查 <input type="checkbox" name="bloodTest">
+        </p>
+
+        <p>
+            尿液检查 <input type="checkbox" name="urineTest">
+        </p>
+
+        <p>
+            总价格 <input type="number" name="totalPrice" value="0">
+        </p>
+
+        <p>
+            <label>请选择到访机构：</label>
+            <select id="institution" name="institution">
+                <option value="东花园区">东花园区</option>
+                <option value="B区">B区</option>
+                <option value="C机构">C机构</option>
+            </select>
+        </p>
+
+        <p>
+            审核状态 <input type="checkbox" name="is_verified">
+        </p>
+
+        <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+    </div>
+</form>
+{% endblock %}

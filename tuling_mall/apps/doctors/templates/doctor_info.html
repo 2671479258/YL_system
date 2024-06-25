@@ -1,0 +1,24 @@
+{% extends "dbase.html" %}
+{% load mytags %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">医生：个人信息页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">医生：个人信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+
+
+
+{% endblock %}
+
+{% block main %}
+<div style="height: 200px;">
+用户名：{{doctor_info.username}}<br>
+    医生名：{{doctor_info.doctorname}}<br>
+    个人介绍：{{doctor_info.introducation}}<br>
+    所属科室：{{doctor_info.which_department}}
+
+</div>
+
+{% endblock %}

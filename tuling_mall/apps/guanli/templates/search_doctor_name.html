@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">医生管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">医生管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <form action="{% url 'search_doctor' %}" method="post" id="search_doctor">
+            <div class="form" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="输入医生姓名" name="search_doctor_name">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
+                            </span>
+            </div></form>
+            </div>
+      </div>
+ <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_doctor/">新增医生</a>
+        </div>
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>医生id</th>
+            <th>医生用户名</th>
+            <th>医生姓名</th>
+            <th>医生密码</th>
+            <th>医生简介</th>
+            <th>医生所属科室</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+{% for doctor_obj in doctors_search_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+    <td>{{ doctor_obj.id }}</td>
+    <td>{{ doctor_obj.username }}</td>
+    <td>{{ doctor_obj.doctorname }}</td>
+    <td>{{ doctor_obj.password }}</td>
+    <td>{{ doctor_obj.introducation }}</td>
+    <td>{{ doctor_obj.which_department }}</td>
+
+
+
+        <td>
+            <a href="/edit_doctor/?id={{doctor_obj.id}}">修改</a>
+            <a href="/delete_doctor/?id={{doctor_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

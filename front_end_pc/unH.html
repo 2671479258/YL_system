@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>社区医疗-健康自测</title>
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./js/host.js"></script>
+    <script type="text/javascript" src="./js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="./js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-1.12.4.min.js"></script>
+	<style>
+       body {
+
+    background-image: url('/images/zc.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+	<div id="app" v-cloak>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="./login.html">登录</a>
+					<span>|</span>
+					<a href="./register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="./user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="./cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="./user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="./images/logo.png"></a>
+		<div class="search_wrap fl">
+			<form method="get" action="/search.html" class="search_con">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索药品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+
+		</div>
+
+		<div class="guest_cart fr">
+            <a href="/carts/" class="cart_name fl">我的购物车</a>
+            <div class="goods_count fl" id="show_count">[[ cart_total_count ]]</div>
+            <ul class="cart_goods_show">
+                <li v-for="cart in carts">
+                    <img :src="cart.default_image_url" alt="商品图片">
+                    <h4>[[ cart.name ]]</h4>
+                    <div>[[ cart.count ]]</div>
+                </li>
+            </ul>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="http://127.0.0.1:8080/yl_index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+
+
+				            <li><a href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+
+				<li><a href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/online_ask.html">在线问诊</a></li>
+                <li class="interval">|</li>
+
+				<li><a style="font-weight: bold;" href="zc_menu.html">健康问卷</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+        <div style="margin-left: 700px;margin-top: 10px;font-size: 26px;color: #3eb8e9">
+		<h2 style="font-weight: bold;">健康自测</h2>
+	</div>
+		<div style="display: flex;flex-direction: row;">
+			<div style="margin-left: 78px;width: 287px;height: 400px;border :1px solid #000;background-color: #f9dddd">
+				<div style="margin-left: 80px;margin-top: 20px;font-size:22px;font-weight: bold;">健康自测说明</div>
+				<div style="margin-top: 13px;font-size: 16px">
+此健康自测旨在帮助用户了解自己的心理健康状况，提供一些初步的参考和建议。测试结果并非专业医学诊断，如果您有严重的心理健康问题，请咨询专业医生的建议。<br><br>隐私保护：<br><br>用户的测试结果将被保密处理，不会以任何形式传播或分享给第三方。我们重视您的隐私，并采取了相应的安全措施以保护您的个人信息。
+                </div>
+
+			</div>
+			<div style="display: flex;flex-direction: column">
+			<div style="margin-left: 305px;width: 550px;margin-top: 45px;font-size: 20px">您的心理健康状况为</div><br>
+			<div style="margin-left: 323px;width: 550px;margin-top: 45px;font-size: 40px;color: red;font-weight: bold;">不健康</div><br>
+				<div style="margin-left: 256px;width: 550px;margin-top: 45px;font-size: 16px;color: black">为了您的身心健康，医生建议您及时就医！</div><br>
+    </div>
+		</div>
+	</div>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/slide.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+</body>
+</html>

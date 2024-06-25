@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">医生管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">医生管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+{#                            <input type="text" class="form-control" placeholder="Search for...">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button class="btn btn-default" type="button">搜索</button>#}
+{#                            </span>#}
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+    <form action="" method="post">
+        <p>
+            <input type="hidden" name="id" value="{{ doctor_obj.id }}">
+        </p>
+        <p>
+            用户名:<input type="text" name="username" value="{{ doctor_obj.username }}">
+        </p>
+        <p>
+            医生姓名:<input type="text" name="doctorname" value="{{ doctor_obj.doctorname }}">
+        </p>
+        <p>
+            密码:<input type="text" name="password" value="{{ doctor_obj.password }}">
+        </p>
+    <p>
+            介绍:<input type="text" name="introducation" value="{{ doctor_obj.introducation }}">
+        </p>
+    <p>
+            所属科室:<input type="text" name="which_department_id" value="{{ doctor_obj.which_department_id  }}">
+        </p>
+
+
+    <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+
+
+
+
+
+
+{% endblock %}

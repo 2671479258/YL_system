@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">药品管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">药品管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+{#                            <input type="text" class="form-control" placeholder="Search for...">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button class="btn btn-default" type="button">搜索</button>#}
+{#                            </span>#}
+            </div>
+      </div>
+{% endblock %}
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+    <p><input type="hidden" name="id" value="{{ tijian_order.id }}"></p>
+
+    <p>
+        预约用户: <input type="text" name="username" value="{{ tijian_order.username_id }}">
+    </p>
+    <p>
+        预约类型: <input type="text" name="checkupType" value="{{ tijian_order.checkupType }}">
+    </p>
+    <p>
+        预约日期: <input type="date" name="orderDate" value="{{ tijian_order.orderDate }}">
+    </p>
+    <p>
+        预约时间: <input type="time" name="orderTime" value="{{ tijian_order.orderTime }}">
+    </p>
+    <p>
+        预约信息: <input type="text" name="ordertip" value="{{ tijian_order.ordertip }}">
+    </p>
+    <p>
+        过敏史: <input type="text" name="allergy" value="{{ tijian_order.allergy }}">
+    </p>
+    <p>
+        家族遗传病史: <input type="text" name="familyHistory" value="{{ tijian_order.familyHistory }}">
+    </p>
+    <p>
+        额外信息: <textarea name="additionalInfo">{{ tijian_order.additionalInfo }}</textarea>
+    </p>
+    <p>
+        X光: <input type="checkbox" name="xRay" {% if tijian_order.xRay %}checked{% endif %}>
+    </p>
+    <p>
+        血液检查: <input type="checkbox" name="bloodTest" {% if tijian_order.bloodTest %}checked{% endif %}>
+    </p>
+    <p>
+        尿液检查: <input type="checkbox" name="urineTest" {% if tijian_order.urineTest %}checked{% endif %}>
+    </p>
+    <p>
+        总价格: <input type="text" name="totalPrice" value="{{ tijian_order.totalPrice }}">
+    </p>
+    <p>
+        到访机构: <input type="text" name="institution" value="{{ tijian_order.institution }}">
+    </p>
+    <p>
+        审核状态: <input type="checkbox" name="is_verified" {% if tijian_order.is_verified %}checked{% endif %}>
+    </p>
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+{% endblock %}

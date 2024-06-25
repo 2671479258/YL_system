@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>社区医疗-首页</title>
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+    <style>
+		a {
+    text-decoration: none; /* 去掉下划线 */
+    color: inherit; /* 继承父元素的颜色，如果有的话 */
+}
+       body {
+
+    background-image: url('/images/index/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+	<div id="app" v-cloak>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="/login.html">登录</a>
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="/cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="/user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+		<div class="search_bar clearfix">
+		<a href="yl_index.html" class="logo fl"><img src="./images/logo.png"></a>
+
+
+	</div>
+
+
+
+<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">主菜单</h1>
+			<ul class="navlist fl">
+				<li><a style="font-weight: bold;" href="http://127.0.0.1:8080/index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+				            <li><a href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+
+				<li><a href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/online_ask.html">在线问诊</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="zc_menu.html">健康问卷</a></li>
+			</ul>
+		</div>
+	</div>
+	<div style="display: flex;flex-direction: column">
+		<div style="display: flex;flex-direction: row">
+			<div style="margin-left: 150px;margin-top: 50px;"><img src="http://127.0.0.1:8080/images/index/index2.jpg" width="750px" height="300px"></div>
+			<div style="border-bottom-color:whitesmoke;margin-left: 50px;margin-top: 50px;width:450px;background-color: #f9f9f9;display: flex;flex-direction: column">
+				<div style="color: #008f7d;font-size: 19px;margin-top: 10px;margin-left: 10px;font-weight: bold;">通知公告</div>
+				<div style="display: flex;flex-direction: column;margin-top: 17px;margin-left: 10px;">
+					<div style="display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">居民轻点鼠标 健康360°呵护</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2024-02-01</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于进一步开展2012年北京市家庭...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2024-02-03</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于刊登《北京市家庭保健员项目...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2024-03-01</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于扩大城镇基本医疗保险跨县住院...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2024-02-08</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于对特种病种审批的通知</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2024-02-08</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于开展“学习讨论落实”活动专项</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-01</div>
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+
+
+
+		<div style="margin-top: 15px;display: flex;flex-direction:row;">
+			<div style="border-bottom-color:whitesmoke;width: 350px;height: 400px;margin-left: 149px;background-color: white">
+				<div style="color: #008f7d;font-size: 19px;margin-top: 10px;margin-left: 10px;font-weight: bold;">疾病预防</div>
+				<div style="display: flex;flex-direction: column;margin-top: 17px;margin-left: 10px;">
+					<div style="display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">糖尿病足离糖友并不远 谨记“防...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-01</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">春季高血压患者的保健方法</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-04</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">糖尿病人较不可缺的4种维生素</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-11-01</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">六大信号提示房颤发生</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-12-05</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">预防低血糖的5个常见方法</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-05</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">注意这些细节可预防胃肠炎</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-12-22</div>
+					</div>
+
+				</div>
+			</div>
+			<div style="border-bottom-color:whitesmoke;margin-left: 25px;background-color: white;width: 500px;height: 400px;">
+				<div style="color: #008f7d;font-size: 19px;margin-top: 10px;margin-left: 10px;font-weight: bold;">政策法规</div>
+				<div style="display: flex;flex-direction: column;margin-top: 17px;margin-left: 10px;">
+					<div style="display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">居民轻点鼠标 健康360°呵护</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-03</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于进一步开展2012年北京市家庭...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-09-05</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于刊登《北京市家庭保健员项目...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-11-01</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于扩大城镇基本医疗保险跨县住院...</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-11-21</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于对特种病种审批的通知</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-11-25</div>
+					</div>
+					<div style="margin-top:15px;display:flex;flex-direction: row">
+						<div style="font-size: 15px;width: 270px;"><a href="#">关于开展“学习讨论落实”活动专项</a></div>
+						<div style="margin-left: 30px;font-size: 14px;color: #929292;">2023-12-01</div>
+					</div>
+
+				</div>
+			</div>
+			<div style="border-bottom-color:whitesmoke;margin-left: 25px;background-color: white;width: 352px;height: 400px;">
+				<div style="color: #008f7d;font-size: 19px;margin-top: 10px;margin-left: 10px;font-weight: bold;">服务指南</div>
+				<div style="display: flex;flex-direction: column;margin-top: 17px;margin-left: 15px;">
+					<div style="display: flex;flex-direction: row;margin-top: 10px">
+
+						<div style="display: flex;flex-direction: column">
+						<div><img src="http://127.0.0.1:8080/images/index/logo1.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">科室分布</div>
+							</div>
+
+						<div style="display: flex;flex-direction: column;margin-left: 38px;">
+						<div><img src="http://127.0.0.1:8080/images/index/logo2.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">专家团队</div>
+							</div>
+
+						<div style="display: flex;flex-direction: column;margin-left: 38px;">
+						<div><img src="http://127.0.0.1:8080/images/index/logo3.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">特色服务</div>
+							</div>
+					</div>
+
+
+
+					<div style="display: flex;flex-direction: row;margin-top: 20px">
+							<div style="display: flex;flex-direction: column">
+						<div><img src="http://127.0.0.1:8080/images/index/logo4.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">门诊时间</div>
+							</div>
+
+						<div style="display: flex;flex-direction: column;margin-left: 38px;">
+						<div><img src="http://127.0.0.1:8080/images/index/logo5.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">就医流程</div>
+							</div>
+
+						<div style="display: flex;flex-direction: column;margin-left: 38px;">
+						<div><img src="http://127.0.0.1:8080/images/index/logo6.png"></div>
+						<div style="margin-top: 10px;margin-left: 8px;font-weight: bold;">在线咨询</div>
+							</div>
+					</div>
+
+
+				</div>
+			</div>
+
+
+		</div>
+		<div style="color: #008f7d;font-size: 19px;margin-top: 10px;margin-left: 150px;font-weight: bold;">医院地图</div>
+		<div style="margin-left: 200px;"><img src="http://127.0.0.1:8080/images/index/map.jpeg"><div>
+
+
+	</div>
+
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    粤ICP备*******8号</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://127.0.0.1:8080/js/slide.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/index.js"></script>
+</body>
+</html>

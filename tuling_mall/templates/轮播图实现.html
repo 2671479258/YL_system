@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课程表</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th>星期一</th>
+      <th>星期二</th>
+      <th>星期三</th>
+      <th>星期四</th>
+      <th>星期五</th>
+      <th>星期六</th>
+      <th>星期日</th>
+    </tr>
+  </thead>
+  <tbody id="schedule">
+    <!-- Data will be inserted here -->
+  </tbody>
+</table>
+<script>
+  // Your data
+var data = {
+    "code": 1,
+    "msg": "success",
+    "data": [
+      {
+        "classId": 9,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-31",
+        "classTime": "19:40~21:10",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 10,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-21",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 12,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-22",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 13,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-22",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 15,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-23",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 4,
+        "className": "Locking基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240002,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小静老师"
+      },
+      {
+        "classId": 5,
+        "className": "Locking少儿课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240002,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小静老师"
+      },
+      {
+        "classId": 1,
+        "className": "Jazz成人基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240003,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课1111111111111111111111111111111111111",
+        "teacherName": "小朱老师"
+      },
+      {
+        "classId": 3,
+        "className": "Breaking进阶课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240003,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小朱老师"
+      },
+      {
+        "classId": 6,
+        "className": "jazz课6",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240004,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小亮老师"
+      },
+      {
+        "classId": 8,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-17",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240004,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小亮老师"
+      },
+      {
+        "classId": 2,
+        "className": "Hiphop成人基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240005,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小马老师"
+      }
+    ]
+  };
+
+ function renderData() {
+    var schedule = document.getElementById('schedule');
+    var rowData = '';
+    var daysOfWeek = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
+
+    var rows = [[], [], [], [], [], [], []];
+
+    data.data.forEach(function(item) {
+      var date = new Date(item.classDate);
+      var dayOfWeek = date.getDay();
+      var time = item.classTime;
+      var className = item.className;
+      var teacherName = item.teacherName;
+
+      var cellContent = '<b>' + className + '</b><br>';
+      cellContent += '<span>' + date.toLocaleDateString() + '</span><br>';
+      cellContent += '<span>' + time + '</span><br>';
+      cellContent += '<span>' + teacherName + '</span>';
+
+      rows[dayOfWeek].push('<td>' + cellContent + '</td>');
+    });
+
+    for (var i = 0; i < 7; i++) {
+      rowData += '<tr>';
+      rowData += rows[i].join('');
+      rowData += '</tr>';
+    }
+
+    schedule.innerHTML = rowData;
+  }
+
+  renderData();
+</script>
+</body>
+</html>

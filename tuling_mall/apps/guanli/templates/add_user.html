@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">用户信息页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加用户信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+
+    <p>
+        用户名<input type="text" name="username">
+    </p>
+    <p>
+        密码<input type="text" name="password">
+    </p>
+     <p>
+        手机号<input type="text" name="mobile">
+    </p>
+     <p>
+        真名<input type="text" name="real_name">
+    </p>
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+
+
+{% endblock %}

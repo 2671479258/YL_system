@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>社区医疗-搜索结果</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+    <style>
+       body {
+
+    background-image: url('images/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+    <div id="app6" v-cloak>
+<div class="header_con" >
+        <div class="header">
+            <div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+            <div class="fr">
+                <div v-if="username" class="login_btn fl">
+                    欢迎您：<em>[[ username ]]</em>
+                    <span>|</span>
+                    <a @click="logoutfunc">退出</a>
+                </div>
+                <div v-else class="login_btn fl">
+                    <a href="login.html">登录</a>
+                    <span>|</span>
+                    <a href="register.html">注册</a>
+                </div>
+                <div class="user_link fl">
+                    <span>|</span>
+                    <a href="user_center_info.html">用户中心</a>
+                    <span>|</span>
+                    <a href="cart.html">我的购物车</a>
+                    <span>|</span>
+                    <a href="user_center_order.html">我的订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search_bar clearfix">
+        <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+        <div class="search_wrap fl">
+            <form method="get" action="/search.html" class="search_con">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="button" class="input_btn fr" name="" value="搜索">
+            </form>
+            <ul class="search_suggest fl">
+                <li><a href="#">999感冒灵</a></li>
+				<li><a href="#">小儿感冒颗粒</a></li>
+				<li><a href="#">布洛芬</a></li>
+				<li><a href="#">N95口罩</a></li>
+            </ul>
+        </div>
+
+        <div @mouseenter="get_cart" class="guest_cart fr" v-cloak>
+    <a href="#" class="cart_name fl">我的购物车</a>
+    <div class="goods_count fl" id="show_count">[[cart_total_count]]</div>
+    <ul class="cart_goods_show">
+        <li v-for="sku in carts">
+            <img :src="sku.default_image_url" alt="商品图片">
+            <h4>[[ sku.name ]]</h4>
+            <div>[[ sku.count ]]</div>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">主菜单</h1>
+			<ul class="navlist fl">
+				<li><a href="http://127.0.0.1:8080/index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+				            <li><a href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+
+				<li><a style="font-weight: bold;" href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+				<li><a  href="http://127.0.0.1:8080/online_ask.html">健康自测</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="zc_menu.html">健康问卷</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+
+    <div class="main_wrap clearfix">
+        <div class="l_wrap fl clearfix">
+    <div>
+        <br>
+        <div style="font-size: 20px;margin-left: 46px;color: coral"><h1><h3>健康小知识</h3></h1></div>
+        <div class="medical_content">
+            <div class="article">
+                <br>
+                <div style="font-size: 20px"><h1>如何预防感冒</h1></div>
+                <br>
+                <p>
+                    感冒是一种常见的呼吸道疾病，以下是一些建议帮助你预防感冒：
+                </p>
+                <ul>
+                    <li>1.保持手部卫生，勤洗手。</li>
+                    <li>2.避免接触生病的人。</li>
+                    <li>3.保持良好的睡眠习惯。</li>
+                    <li>4.多吃富含维生素的食物。</li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+        <div class="r_wrap fr clearfix">
+<!--            <div class="sort_bar">-->
+<!--                <a @click="on_sort('-create_time')" :class="ordering=='-create_time'?'active':''">默认</a>-->
+<!--                <a @click="on_sort('price')" :class="ordering=='price'?'active':''">价格</a>-->
+<!--                <a @click="on_sort('-sales')" :class="ordering=='-sales'?'active':''">人气</a>-->
+<!--            </div>-->
+
+            <ul class="goods_type_list clearfix">
+                <li v-for="sku in skus">
+                    <a :href="sku.url"><img :src="sku.default_image_url"></a>
+                    <h4><a style="font-weight: bold;" :href="sku.url">[[sku.name]]</a></h4>
+                    <div class="operate">
+                        <span style="font-weight: bold;" class="prize">￥[[sku.price]]</span>
+
+                    </div>
+                </li>
+            </ul>
+            <div class="pagenation">
+                <a v-show="previous" @click="on_page(previous)">上一页</a>
+                <a v-for="num in count" @click="on_page(num)" :class="num==page?'active':''">[[num]]</a>
+                <a v-show="next" @click="on_page(next)">下一页></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxx商业股份有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    ICP备*******8号</p>
+    </div>
+    </div>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
+</body>
+</html>

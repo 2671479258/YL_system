@@ -1,0 +1,762 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>社区医疗-首页</title>
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+    <style>
+       body {
+
+    background-image: url('/images/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+	<div id="app" v-cloak>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="/login.html">登录</a>
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="/cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="/user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="./images/logo.png"></a>
+		<div class="search_wrap fl">
+			<form method="get" action="/search.html" class="search_con">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+			<ul class="search_suggest fl">
+				<li><a href="http://127.0.0.1:8080/goods/14.html">999感冒灵</a></li>
+				<li><a href="http://127.0.0.1:8080/goods/12.html">小儿感冒颗粒</a></li>
+				<li><a href="http://127.0.0.1:8080/goods/20.html">布洛芬</a></li>
+				<li><a href="#">N95口罩</a></li>
+			</ul>
+		</div>
+
+		<div class="guest_cart fr">
+            <a href="/cart.html" class="cart_name fl">我的购物车</a>
+            <div class="goods_count fl" id="show_count">[[ cart_total_count ]]</div>
+            <ul class="cart_goods_show">
+                <li v-for="cart in carts">
+                    <img :src="cart.default_image_url" alt="商品图片">
+                    <h4>[[ cart.name ]]</h4>
+                    <div>[[ cart.count ]]</div>
+                </li>
+            </ul>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">商品分类</h1>
+			<ul class="navlist fl">
+				<li><a style="font-weight: bold;" href="http://127.0.0.1:8080/index.html">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="http://127.0.0.1:8080/order.html">问诊预约</a></li>
+				<li class="interval">|</li>
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+				<li><a href="http://127.0.0.1:8000/tijian_order/">体检预约</a></li>
+                <li class="interval">|</li>
+				<li><a href="zc.html">健康自测</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="pos_center_con clearfix">
+
+		<ul class="slide">
+
+
+            <li><a href="http://127.0.0.1:8080/goods/19.html"><img src="/media/content_images/1.png" alt="银诺克"></a></li>
+
+
+
+            <li><a href="http://127.0.0.1:8080/goods/10.html"><img src="/media/content_images/2.png" alt="风寒感冒"></a></li>
+
+
+
+            <li><a href="http://127.0.0.1:8080/goods/25.html"><img src="/media/content_images/3.png" alt="多潘立贡片"></a></li>
+
+
+
+            <li><a href="http://127.0.0.1:8080/goods/12.html"><img src="/media/content_images/4.png" alt="小儿感冒颗粒"></a></li>
+
+
+		</ul>
+		<div class="prev"></div>
+		<div class="next"></div>
+		<ul class="points">
+		</ul>
+
+            <ul class="sub_menu">
+                {% for group in categories.values %}
+                    <li>
+                        <div class="level1">
+                            {% for chanel in group.channels %}
+                                <a href="{{ chanel.url }}">{{ chanel.name }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="level2">
+                            {% for cat2 in group.sub_cats %}
+                            <div class="list_group">
+
+                                <div class="group_name fl">{{ cat2.name }}&gt;</div>
+                                <div class="group_detail fl">
+                                    {% for cat3 in cat2.sub_cats %}
+                                     <a href="/list.html?cat={{ cat3.id }}">{{ cat3.name }}</a>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        <div class="news">
+            <div class="news_title">
+                <h3>快讯</h3>
+                <a href="#">更多 &gt;</a>
+            </div>
+            <ul class="news_list">
+                {% for content in contents.index_kx %}
+                    <li><a href="{{ content.url }}">{{ content.title }}</a></li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="list_model">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">感冒/发烧/咳嗽</h3>
+            <div class="subtitle fr">
+                <a @mouseenter="f1_tab=1" :class="f1_tab===1?'active':''">感冒药品</a>
+                <a @mouseenter="f1_tab=2" :class="f1_tab===2?'active':''">发烧药品</a>
+                <a @mouseenter="f1_tab=3" :class="f1_tab===3?'active':''">止咳药品</a>
+            </div>
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+
+                <img src="/media/content_images/t1.png">
+                <div class="channel">
+
+                        <a href="http://127.0.0.1:8080/list.html?cat=115">清热</a>
+
+                        <a href="http://127.0.0.1:8080/list.html?cat=116">口服</a>
+
+                        <a href="http://127.0.0.1:8080/list.html?cat=117"> 抗病毒</a>
+
+                        <a href="http://www.itcast.cn">退烧</a>
+
+                </div>
+                <div class="key_words">
+
+                        <a href="http://www.itcast.cn">999颗粒</a>
+
+                        <a href="http://www.itcast.cn">1</a>
+
+                        <a href="http://www.itcast.cn">4</a>
+
+                        <a href="http://www.itcast.cn">清热颗粒</a>
+
+                        <a href="http://www.itcast.cn">2</a>
+
+                        <a href="http://www.itcast.cn">3</a>
+
+                        <a href="http://www.itcast.cn">全面屏</a>
+
+                        <a href="http://www.itcast.cn">守护宝</a>
+
+                        <a href="http://www.itcast.cn">存储卡</a>
+
+                </div>
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f1_tab===1" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/17.html" class="goods_pic"><img src="/media/medicine_images/6.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/17.html" title="复方氨酚烷胺胶囊（1盒）">复方氨酚烷胺胶囊（1盒）</a></h4>
+                            <div class="price">￥ 12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/12.html" class="goods_pic"><img src="/media/medicine_images/3.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/12.html" title="小儿感冒颗粒">小儿感冒颗粒</a></h4>
+                            <div class="price">￥ 25</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/15.html" class="goods_pic"><img src="/media/medicine_images/1.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/15.html" title="同仁堂感冒清热颗粒（1盒）">同仁堂感冒清热颗粒（1盒）</a></h4>
+                            <div class="price">￥ 12.8</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/14.html" class="goods_pic"><img src="/media/medicine_images/999.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/14.html" title="999感冒灵颗粒">999感冒灵颗粒</a></h4>
+                            <div class="price">￥25</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/1.html" class="goods_pic"><img src="/media/medicine_images/7.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/1.html" title="抗病毒口服液">抗病毒口服液</a></h4>
+                            <div class="price">9.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/17.html" class="goods_pic"><img src="/media/medicine_images/6.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/17.html" title="复方氨酚烷胺胶囊">复方氨酚烷胺胶囊</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/19.html" class="goods_pic"><img src="/media/medicine_images/8.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/19.html" title="银诺克对乙酰基酚片">银诺克对乙酰基酚片</a></h4>
+                            <div class="price">￥13</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/10.html" class="goods_pic"><img src="/media/medicine_images/4.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/10.html" title="风寒感冒颗粒">风寒感冒颗粒</a></h4>
+                            <div class="price">￥18</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/31.html" class="goods_pic"><img src="/media/medicine_images/22.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/31.html" title="香菊感冒颗粒">香菊感冒颗粒</a></h4>
+                            <div class="price">￥29.8</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/32.html" class="goods_pic"><img src="/media/medicine_images/23.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/32.html" title="金青感冒颗粒">金青感冒颗粒</a></h4>
+                            <div class="price">￥19.9</div>
+                        </li>
+
+                </ul>
+                <ul v-show="f1_tab===2" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/20.html" class="goods_pic"><img src="/media/medicine_images/9.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/20.html" title="布洛芬缓释胶囊">布洛芬缓释胶囊</a></h4>
+                            <div class="price">￥9.9</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/33.html" class="goods_pic"><img src="/media/medicine_images/24.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/33.html" title="布洛芬颗粒">布洛芬颗粒</a></h4>
+                            <div class="price">￥17</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/34.html" class="goods_pic"><img src="/media/medicine_images/25.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/34.html" title="布洛芬悬浮液">布洛芬悬浮液</a></h4>
+                            <div class="price">￥39</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/35.html" class="goods_pic"><img src="/media/medicine_images/26.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/35.html" title="阿咖酚散">阿咖酚散</a></h4>
+                            <div class="price">￥7.9</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/36.html" class="goods_pic"><img src="/media/medicine_images/27.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/36.html" title="清开灵颗粒">清开灵颗粒</a></h4>
+                            <div class="price">￥20.8</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/37.html" class="goods_pic"><img src="/media/medicine_images/28.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/37.html" title="复方小儿退热栓">复方小儿退热栓</a></h4>
+                            <div class="price">￥9.9</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/24.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="药品">药品</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/24.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="药品2">药品2</a></h4>
+                            <div class="price">￥15</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/24.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="药品3">药品3</a></h4>
+                            <div class="price">￥11</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/24.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="药品4">药品4</a></h4>
+                            <div class="price">￥14</div>
+                        </li>
+
+                </ul>
+                <ul v-show="f1_tab===3" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/21.html" class="goods_pic"><img src="/media/medicine_images/11.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/21.html" title="麻杏止咳糖浆">麻杏止咳糖浆</a></h4>
+                            <div class="price">￥13.9</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/22.html" class="goods_pic"><img src="/media/medicine_images/12.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/22.html" title="小儿止糖浆">小儿止糖浆</a></h4>
+                            <div class="price">￥9.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/23.html" class="goods_pic"><img src="/media/medicine_images/13.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/23.html" title="止咳宝片">止咳宝片</a></h4>
+                            <div class="price">￥30</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/22.html" class="goods_pic"><img src="/media/medicine_images/12.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/22.html" title="止咳药A">止咳药A</a></h4>
+                            <div class="price">￥169.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/22.html" class="goods_pic"><img src="/media/medicine_images/12.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/22.html" title="止咳药B">止咳药B</a></h4>
+                            <div class="price">￥19.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/22.html" class="goods_pic"><img src="/media/medicine_images/11.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/22.html" title="止咳药C">止咳药C</a></h4>
+                            <div class="price">￥99.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/13.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="止咳药D">止咳药D</a></h4>
+                            <div class="price">￥29.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/12.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="止咳药">止咳药</a></h4>
+                            <div class="price">￥299.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/12.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="止咳药">止咳药</a></h4>
+                            <div class="price">￥99.00</div>
+                        </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="list_model model02">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">肠胃消化/儿童用药</h3>
+            <div class="subtitle fr">
+                <a @mouseenter="f2_tab=1" :class="f2_tab===1?'active':''">肠胃消化</a>
+                <a @mouseenter="f2_tab=2" :class="f2_tab===2?'active':''">儿童用药</a>
+            </div>
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+                <img src="/media/content_images/t2.png">
+                <div class="channel">
+
+                        <a href="http://www.itcast.cn">肠胃</a>
+
+                        <a href="http://www.itcast.cn">消化</a>
+
+                        <a href="http://www.itcast.cn">儿童</a>
+
+                        <a href="http://www.itcast.cn">感冒</a>
+
+                </div>
+                <div class="key_words">
+
+                        <a href="http://www.itcast.cn">益气丸</a>
+
+                        <a href="http://www.itcast.cn">正气水</a>
+
+                        <a href="http://www.itcast.cn">消食片</a>
+
+                        <a href="http://www.itcast.cn">肠胃宁</a>
+
+                        <a href="http://www.itcast.cn">智能路由</a>
+
+                        <a href="http://www.itcast.cn">肠胃1</a>
+
+                        <a href="http://www.itcast.cn">肠胃2</a>
+
+                        <a href="http://www.itcast.cn">肠胃3</a>
+
+                        <a href="http://www.itcast.cn">肠胃4</a>
+
+                </div>
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f2_tab===1" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/25.html" class="goods_pic"><img src="/media/medicine_images/15.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/25.html" title="多潘立酮片">多潘立酮片</a></h4>
+                            <div class="price">￥25.8</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/26.html" class="goods_pic"><img src="/media/medicine_images/16.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/26.html" title="补中益气丸">补中益气丸</a></h4>
+                            <div class="price">￥19.2</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/27.html" class="goods_pic"><img src="/media/medicine_images/17.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/27.html" title="藿香正气水">藿香正气水</a></h4>
+                            <div class="price">￥6</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/28.html" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/28.html" title="肠胃宁片">肠胃宁片</a></h4>
+                            <div class="price">￥13</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/30.html" class="goods_pic"><img src="/media/medicine_images/20.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/30.html" title="健胃消食片">健胃消食片</a></h4>
+                            <div class="price">￥16.5</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="肠胃药1">肠胃药1</a></h4>
+                            <div class="price">￥21</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="肠胃药2">肠胃药2</a></h4>
+                            <div class="price">￥24</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="肠胃药3">肠胃药3</a></h4>
+                            <div class="price">￥15</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="肠胃药4">肠胃药4</a></h4>
+                            <div class="price">￥17</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/18.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="肠胃药5">肠胃药5</a></h4>
+                            <div class="price">￥26</div>
+                        </li>
+
+                </ul>
+                <ul v-show="f2_tab===2" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/29.html" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/29.html" title="小儿氨酚黄那敏颗粒">小儿氨酚黄那敏颗粒</a></h4>
+                            <div class="price">￥17.5</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药1">儿童药1</a></h4>
+                            <div class="price">￥22</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药2">儿童药2</a></h4>
+                            <div class="price">￥43</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药3">儿童药3</a></h4>
+                            <div class="price">￥15</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药4">儿童药4</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药5">儿童药5</a></h4>
+                            <div class="price">￥9.9</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药6">儿童药6</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药7">儿童药7</a></h4>
+                            <div class="price">￥26</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药8">儿童药8</a></h4>
+                            <div class="price">￥15</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/19.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="儿童药9">儿童药9</a></h4>
+                            <div class="price">￥25</div>
+                        </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="list_model model03">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">营养保健/皮肤用药</h3>
+            <div class="subtitle fr">
+                <a @mouseenter="f3_tab=1" :class="f3_tab===1?'active':''">营养保健</a>
+                <a @mouseenter="f3_tab=2" :class="f3_tab===2?'active':''">皮肤用药</a>
+            </div>
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+                <img src="/media/content_images/t3.png">
+                <div class="channel">
+
+                        <a href="http://www.itcast.cn">营养</a>
+
+                        <a href="http://www.itcast.cn">保健</a>
+
+                        <a href="http://www.itcast.cn">皮肤用药</a>
+
+                </div>
+                <div class="key_words">
+
+                        <a href="http://www.itcast.cn">维生素</a>
+
+                        <a href="http://www.itcast.cn">蛋白粉</a>
+
+                        <a href="http://www.itcast.cn">保健</a>
+
+                        <a href="http://www.itcast.cn">保健2</a>
+
+                        <a href="http://www.itcast.cn">保健3</a>
+
+                        <a href="http://www.itcast.cn">皮肤1</a>
+
+                        <a href="http://www.itcast.cn">皮肤2</a>
+
+                        <a href="http://www.itcast.cn">皮肤3</a>
+
+                        <a href="http://www.itcast.cn">皮肤4</a>
+
+                </div>
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f3_tab===1" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/38.html" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/38.html" title="维生素E软胶囊">维生素E软胶囊</a></h4>
+                            <div class="price">￥138</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/39.html" class="goods_pic"><img src="/media/medicine_images/30.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/39.html" title="蛋白粉">蛋白粉</a></h4>
+                            <div class="price">￥299</div>
+                        </li>
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/40.html" class="goods_pic"><img src="/media/medicine_images/31.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/40.html" title="天麻酸枣仁片">天麻酸枣仁片</a></h4>
+                            <div class="price">￥41</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品1">保健品1</a></h4>
+                            <div class="price">￥22</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品2">保健品2</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品3">保健品3</a></h4>
+                            <div class="price">￥15</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品4">保健品4</a></h4>
+                            <div class="price">￥52</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品5">保健品5</a></h4>
+                            <div class="price">￥33</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品6">保健品6</a></h4>
+                            <div class="price">￥46</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/29.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="保健品7">保健品7</a></h4>
+                            <div class="price">￥67</div>
+                        </li>
+
+                </ul>
+                <ul v-show="f3_tab===2" class="goods_list fl">
+
+                        <li>
+                            <a href="http://127.0.0.1:8080/goods/41.html" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://127.0.0.1:8080/goods/41.html" title="尿素维E乳膏">尿素维E乳膏</a></h4>
+                            <div class="price">￥6</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药1">皮肤药1</a></h4>
+                            <div class="price">￥6</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药2">皮肤药2</a></h4>
+                            <div class="price">￥8</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药3">皮肤药3</a></h4>
+                            <div class="price">￥22</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药4">皮肤药4</a></h4>
+                            <div class="price">￥12</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药5">皮肤药5</a></h4>
+                            <div class="price">￥11</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药6">皮肤药6</a></h4>
+                            <div class="price">￥67</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药7">皮肤药7</a></h4>
+                            <div class="price">￥6</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药8">皮肤药8</a></h4>
+                            <div class="price">￥7</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="/media/medicine_images/32.png"></a>
+                            <h4><a href="http://www.itcast.cn" title="皮肤药9">皮肤药9</a></h4>
+                            <div class="price">￥16</div>
+                        </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    粤ICP备*******8号</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://127.0.0.1:8080/js/slide.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/index.js"></script>
+</body>
+</html>

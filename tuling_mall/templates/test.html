@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>星期一</th>
+            <th>星期二</th>
+            <th>星期三</th>
+            <th>星期四</th>
+            <th>星期五</th>
+            <th>星期六</th>
+            <th>星期日</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="Monday"></td>
+            <td id="Tuesday"></td>
+            <td id="Wednesday"></td>
+            <td id="Thursday"></td>
+            <td id="Friday"></td>
+            <td id="Saturday"></td>
+            <td id="Sunday"></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    // 将后端传来的数据解析并按星期几排列
+    var data = {
+    "code": 1,
+    "msg": "success",
+    "data": [
+      {
+        "classId": 9,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-31",
+        "classTime": "19:40~21:10",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 10,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-21",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 12,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-22",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 13,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-22",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 15,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-23",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240001,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小华老师"
+      },
+      {
+        "classId": 4,
+        "className": "Locking基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240002,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小静老师"
+      },
+      {
+        "classId": 5,
+        "className": "Locking少儿课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240002,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小静老师"
+      },
+      {
+        "classId": 1,
+        "className": "Jazz成人基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240003,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课jazz基础课1111111111111111111111111111111111111",
+        "teacherName": "小朱老师"
+      },
+      {
+        "classId": 3,
+        "className": "Breaking进阶课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240003,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小朱老师"
+      },
+      {
+        "classId": 6,
+        "className": "jazz课6",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240004,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小亮老师"
+      },
+      {
+        "classId": 8,
+        "className": "Breaking进阶课",
+        "classDate": "2024-05-17",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240004,
+        "classDance": "breaking",
+        "classStatus": "未上课",
+        "classMessage": "教breaking进阶套路。",
+        "teacherName": "小亮老师"
+      },
+      {
+        "classId": 2,
+        "className": "Hiphop成人基础课",
+        "classDate": "2020-02-02",
+        "classTime": "9:00~10:20",
+        "teacherId": 20240005,
+        "classDance": "breaking",
+        "classStatus": "1",
+        "classMessage": "1",
+        "teacherName": "小马老师"
+      }
+    ]
+  };
+
+    // 获取每个日期对应的星期几
+     // 获取每个日期对应的星期几
+    function getDayOfWeek(dateString) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const date = new Date(dateString);
+        return days[date.getDay()];
+    }
+
+    // 根据星期几将数据填入表格中对应的单元格
+   data.data.forEach(item => {
+    const dayOfWeek = getDayOfWeek(item.classDate);
+    const cell = document.getElementById(dayOfWeek);
+    if (cell) {
+        if (!cell.innerHTML.trim()) { // 如果单元格为空
+            const classInfo = `${item.className} - ${item.classTime}, ${item.teacherName} (${item.classDate})`; // 添加日期信息
+            cell.innerHTML = `<p>${classInfo}</p>`;
+        } else { // 如果单元格已有内容
+            const existingContent = cell.innerHTML;
+            const classInfo = `${item.className} - ${item.classTime}, ${item.teacherName} (${item.classDate})`; // 添加日期信息
+            cell.innerHTML = existingContent + `<br><p>${classInfo}</p>`; // 在原内容后追加新内容
+        }
+    }
+});
+</script>
+
+</body>
+</html>

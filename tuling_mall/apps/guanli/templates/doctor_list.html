@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">医生管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">医生管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <form action="{% url 'search_doctor' %}" method="post" id="search_doctor">
+            <div class="form" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="输入用户姓名" name="search_doctor_name">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
+                            </span>
+            </div></form>
+            </div>
+      </div>
+ <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_doctor/">新增医生</a>
+        </div>
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>医生id</th>
+            <th>医生用户名</th>
+            <th>医生姓名</th>
+            <th>医生密码</th>
+            <th>医生简介</th>
+            <th>医生所属科室</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+ {% for doctor in page_obj %}
+    <tr>
+   <td>{{ forloop.counter }}</td>
+            <td>{{ doctor.id }}</td>
+            <td>{{ doctor.username }}</td>
+            <td>{{ doctor.doctorname }}</td>
+            <td>{{ doctor.password }}</td>
+            <td>{{ doctor.introducation }}</td>
+            <td>{{ doctor.which_department }}</td>
+
+        <td>
+            <a href="/edit_doctor/?id={{doctor_obj.id}}">修改</a>
+            <a href="/delete_doctor/?id={{doctor_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li>
+            <a href="?page=1" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li>
+            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+        </li>
+        <li class="disabled">
+            <span aria-hidden="true">&laquo;</span>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="active"><span>{{ num }} <span class="sr-only">(current)</span></span></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li><a href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li>
+            <a href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span aria-hidden="true">&raquo;</span>
+        </li>
+        <li class="disabled">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">体检管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加体检记录<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+
+    <p>
+        体检用户id<input type="text" name="user_id">
+    </p>
+    <p>
+        体检日期<input type="text" name="tijian_Data">
+    </p>
+     <p>
+        身高<input type="text" name="height">
+    </p>
+     <p>
+        体重<input type="text" name="weight">
+    </p>
+     <p>
+        左眼视力<input type="text" name="lefteye">
+    </p>
+     <p>
+        右眼视力<input type="text" name="righteye">
+    </p>
+    <p>
+        血压<input type="text" name="blood_oxygen">
+    </p>
+    <p>
+        心率<input type="text" name="blood_pressure">
+    </p>
+    <p>
+        血氧饱和度<input type="text" name="heart_rate">
+    </p>
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+
+
+{% endblock %}

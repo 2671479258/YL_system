@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>社区医疗-问诊预约</title>
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+    <style>
+.container > div {
+        margin-bottom: 5px;
+    }
+		a {
+
+    color: #0000FF
+}
+       body {
+
+    background-image: url('/images/index/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+	<div v-cloak>
+	<div id="app" class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="/login.html">登录</a>
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="/cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="/user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+		<div class="search_bar clearfix">
+		<a href="yl_index.html" class="logo fl"><img src="./images/logo.png"></a>
+
+
+	</div>
+
+
+
+<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">主菜单</h1>
+			<ul class="navlist fl">
+				<li><a href="http://127.0.0.1:8080/yl_index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a style="font-weight: bold;" href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+				            <li><a href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+
+				<li><a href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+<!--				<li><a href="http://127.0.0.1:8080/order.html">问诊预约</a></li>-->
+<!--				<li class="interval">|</li>-->
+<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+
+				<li><a href="http://127.0.0.1:8080/online_ask.html">在线问诊</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="zc_menu.html">健康问卷</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div style="display: flex;flex-direction: row;margin-left: 50px;">
+		<div style="margin-left: 250px;margin-top: 20px;"><a href="http://127.0.0.1:8080/register.html"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step1.jpg"></a></div>
+		<div style="margin-left: 10px;margin-top: 20px;"><a href="http://127.0.0.1:8080/login.html"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step2.jpg"></a></div>
+		<div style="margin-left: 10px;margin-top: 20px;"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step3.jpg"></div>
+		<div style="margin-left: 10px;margin-top: 20px;"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step4.jpg"></div>
+		<div style="margin-left: 10px;margin-top: 20px;"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step5.jpg"></div>
+		<div style="margin-left: 10px;margin-top: 20px;"><img width="150px" height="100px" src="http://127.0.0.1:8080/images/index/step6.jpg"></div>
+
+	</div>
+		<div style="display: flex;flex-direction: row;margin-top: 20px;">
+			<div style="margin-left: 250px;width: 800px;height:1800px;background-color: white">
+				<div style="display: flex;flex-direction: column">
+
+				<div style="margin-left: 50px;margin-top: 50px;font-size: 20px;font-weight: bold;color:#009983 ">问诊预约</div>
+				<div style="margin-left: 50px;margin-top:25px;display: flex;flex-direction: row">
+
+					<div style="font-size:15px;font-weight: bold;width: 110px;">外聘专家</div>
+
+					<div style="display: flex;flex-direction: row">
+						<div style="display: flex;flex-direction: column;margin-left: 50px;font-size: 14px;">
+							<div><a href="DP1.html" class="departmentLink" data-department-id="1">※儿科</a></div>
+
+							<div><a href="DP1.html" class="departmentLink" data-department-id="3">※口腔科</a></div>
+						</div>
+
+
+						<div style="display: flex;flex-direction: column;margin-left: 50px;font-size: 14px;">
+							<div><a href="DP1.html" class="departmentLink" data-department-id="7">※呼吸科</a></div>
+							<div><a href="DP1.html" class="departmentLink" data-department-id="2">※心内科</a></div>
+						</div>
+
+
+						<div style="display: flex;flex-direction: column;margin-left: 50px;font-size: 14px;">
+							<div><a href="DP1.html" class="departmentLink" data-department-id="8">※心血管科</a></div>
+							<div><a href="DP1.html" class="departmentLink" data-department-id="6">※耳鼻喉科</a></div>
+						</div>
+
+
+
+					</div>
+
+				</div>
+
+					<div style="margin-left: 50px;margin-top:25px;display: flex;flex-direction: row">
+
+					<div style="font-size:15px;font-weight: bold;width: 110px;">多学科联合门诊</div>
+
+					<div style="display: flex;flex-direction: row">
+						<div class="container" style="display: flex; flex-direction: column; margin-left: 50px; font-size: 14px;">
+    <div><a href="#">心耳鼻喉科</a></div>
+    <div><a href="#">妇科</a></div>
+    <div><a href="#">糖尿病足多学科门诊(0)</a></div>
+    <div><a href="#">前列腺癌多学科门诊(0)</a></div>
+    <div><a href="#">减重降糖代谢多学科门诊(0))</a></div>
+    <div><a href="#">围绝经期多学科(0)</a></div>
+
+</div>
+
+
+						<div class="container" style="display: flex; flex-direction: column; margin-left: 50px; font-size: 14px;">
+    <div><a href="#">直结肠癌多学科门诊(0)</a></div>
+    <div><a href="#">胃癌多学科门诊(0)</a></div>
+    <div><a href="#">骨质疏松多学科门诊(0)</a></div>
+    <div><a href="#">乳腺癌多学科门诊(0)</a></div>
+    <div><a href="#">食管癌多学科门诊(5)</a></div>
+
+</div>
+
+
+					</div>
+
+				</div>
+
+					<div style="margin-left: 50px;margin-top:25px;display: flex;flex-direction: row">
+
+					<div style="font-size:15px;font-weight: bold;width: 110px;">内科</div>
+
+					<div style="display: flex;flex-direction: row">
+						<div class="container" style="display: flex; flex-direction: column; margin-left: 50px; font-size: 14px;">
+    <div><a href="#">血液科专家、专科(231)</a></div>
+    <div><a href="#">风湿免疫(雷诺专病)(25)</a></div>
+    <div><a href="#">普内科周日门诊(本部)(21)</a></div>
+    <div><a href="#">前列腺癌多学科门诊(0)</a></div>
+    <div><a href="#">减重降糖代谢多学科门诊(0))</a></div>
+    <div><a href="#">围绝经期多学科(0)</a></div>
+
+</div>
+
+
+						<div class="container" style="display: flex; flex-direction: column; margin-left: 50px; font-size: 14px;">
+    <div><a href="#">风湿免疫专家、专科(114)</a></div>
+    <div><a href="#">普内科门诊(本部)(1539)</a></div>
+    <div><a href="#">肾内科专家、专科(291)</a></div>
+    <div><a href="#">乳腺癌多学科门诊(0)</a></div>
+    <div><a href="#">食管癌多学科门诊(5)</a></div>
+
+</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+</div>
+
+			<div style="margin-left: 20px;width: 350px;height:1800px;background-color: white">
+				<div style="background-color:#f2f2f2;;font-size: 20px;height: 40px;font-weight: bold;">友情提醒</div>
+				<div style="font-size: 14px;margin-left:5px;width: 250px;margin-top: 10px;">1、光标移动到医生姓名上，将显示医生的介绍。<br>
+2、用户登录后，直接点击医生姓名，就可以选择时间段进行预约挂号。<br>
+3、患者至窗口挂号，出示预约号、病历号、身份证号之一确认预约挂号，医保患者可用社保卡/市民卡确认预约挂号。<br>
+4、患者至自助机挂号，通过输入病历号条码、身份证、社保卡/市民卡确认预约挂号。<br>
+咨询电话：0512-52227227</div>
+
+
+				<div style="background-color:#f2f2f2;;font-size: 20px;height: 40px;font-weight: bold;margin-top: 15px;">帮助说明</div>
+				<div style="font-size: 14px;width: 300px;margin-top: 10px;margin-left:5px;">
+					<span style="font-weight: bold; color: #009983;margin-left: 20px;">1、预约说明</span>
+					网上预约是医院为不同的就诊人群提供的一项便民措施，预约原则是“先预约，先确认”。为保证公平性，每天网上预约专家的数量和预约的时间点是限定的，目前我院门诊已全面开展网上预约。
+					<br>为防止预约非法使用，我院实行实名制预约，预约前必须在我院建档或有挂号记录，并且填写完整的身份证号码(医保建档后即有身份证信息)。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">2、预约及挂号费用</span>
+					作为本院的一项便民措施，网上预约不收取预约费。您每天最多可上午预约1个门诊，下午预约1个门诊，但每周最多预约3个门诊，本次预约确认挂号或取消预约后能预约接下来的门诊。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">3、预约时段</span> 您可以预约七天内已经开通网上预约的各类门诊，当天7:00前可以预约当天的门诊，12:30前可以预约当天下午的门诊。每日上午7:45循环放号。如有变更，请以医院提供的医生开诊时间为准。遇节假日请注意微信公众号或网上公告。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">4、预约确认</span> 您必须完整填写相关资料（如：姓名、联系电话、身份证号码等）方可预约，本院承诺个人资料不外泄；如果在登记信息时，使用虚假资料，一经发现将停止该注册用户的使用。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">5、取号挂号</span> 在就诊当天按短信、微信或打印凭证规定的时间至医院自助机预约取号（社保卡/市民卡为取医保号，身份证为取自费号），也可至人工窗口告知挂号人员预约取号（需出示社保卡/市民卡/身份证/病历号/预约号），我院的信息系统会自动获取您的预约信息。逾期将自动取消预约名额，同时，您将被视为爽约一次，按爽约的规定处理。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">6、停诊安排</span> 如遇临时情况或暂时停诊，我院将在第一时间以电话或短信的形式通知您，若来不及通知，将由医院安排相同资质医师接诊，由此给您带来的不便敬请谅解。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">7、取消预约</span> 如您不能按预约时间前来就诊，请直接在网站上或微信取消预约，否则记爽约一次。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">8、违约规定 </span>为保证预约挂号的公平性，杜绝虚假预约，连续爽约三次或故意预约取消多次将进入黑名单，系统将自动拒绝其任何预约挂号资格。
+
+<br><br><span style="font-weight: bold; color: #009983;margin-left: 20px;">9、检查预约说明：</span> 注册用户通过实名认证并且近期开具了相关检查申请单，可以预约相关检查。目前我院已部分开放超声检查预约，最长可预约7天内的检查。在检查当天，患者凭检查申请单和预约短信至超声科登记和候诊。 </div>
+
+			</div>
+
+		</div>
+<script>
+    // 选择所有具有 departmentLink 类名的链接元素
+    var departmentLinks = document.querySelectorAll('.departmentLink');
+
+    // 遍历链接元素并为每个链接添加点击事件监听器
+    departmentLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // 阻止默认行为，即防止链接的默认跳转行为
+            event.preventDefault();
+
+            // 获取部门ID
+            var departmentId = this.getAttribute('data-department-id');
+            console.log(departmentId);
+
+            // 将部分数据存储在本地存储中
+            localStorage.setItem('departmentId', departmentId);
+
+            // 执行页面跳转
+            window.location.href = 'DP1.html';
+        });
+    });
+</script>
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    粤ICP备*******8号</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://127.0.0.1:8080/js/slide.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/index.js"></script>
+</body>
+</html>

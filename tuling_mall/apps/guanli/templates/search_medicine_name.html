@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">药品管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">药品管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <form action="{% url 'search_medicine' %}" method="post" id="search_medicine">
+            <div class="form" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="输入药名" name="search_medicine_name">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
+                            </span>
+            </div></form>
+            </div>
+      </div>
+        <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_medicine/">新增药品信息</a>
+        </div>
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>药品id</th>
+            <th>药名</th>
+            <th>进价</th>
+            <th>市场价</th>
+            <th>库存</th>
+            <th>销量</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for medicine_obj in medicine_search_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+    <td>{{ medicine_obj.id }}</td>
+    <td>{{ medicine_obj.name }}</td>
+    <td>{{ medicine_obj.cost_price }}</td>
+    <td>{{ medicine_obj.market_price }}</td>
+    <td>{{ medicine_obj.stock}}</td>
+    <td>{{ medicine_obj.sales }}</td>
+        <td>
+            <a href="/edit_medicine/?id={{medicine_obj.id}}">修改</a>
+            <a href="/delete_medicine/?id={{medicine_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

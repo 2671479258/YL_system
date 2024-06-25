@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>社区医疗-用户中心</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+   <style>
+              body {
+
+    background-image: url('/images/userbg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    .main_con {
+        display: flex;
+    }
+
+    .left_menu_con {
+        width: 200px; /* 设置左侧菜单宽度 */
+        margin-right: 20px; /* 设置左侧菜单和表格的间距 */
+    }
+
+    .tijian_con {
+        flex: 1; /* 让表格占据剩余的空间 */
+    }
+
+    /* 其他样式保持不变 */
+    .tijian_table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .tijian_table th, .tijian_table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .nested_table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 5px;
+    }
+
+    .nested_table th, .nested_table td {
+        border: 1px solid #ddd;
+        padding: 5px;
+        text-align: left;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    thead {
+        background-color: #f5f5f5;
+        border-bottom: 2px solid #ddd;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* 奇偶行的背景色 */
+    tbody tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+
+    <div id="app" v-cloak>
+    <div class="header_con">
+        <div class="header">
+            <div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+             <div class="fr">
+                <div v-if="username" class="login_btn fl">
+                    欢迎您：<em>{{ username }}</em>
+                    <span>|</span>
+                    <a @click="logoutfunc">退出</a>
+                </div>
+                <div v-else class="login_btn fl">
+                    <a href="login.html">登录</a>
+                    <span>|</span>
+                    <a href="register.html">注册</a>
+                </div>
+                <div class="user_link fl">
+                    <span>|</span>
+                    <a href="user_center_info.html">用户中心</a>
+                    <span>|</span>
+                    <a href="cart.html">我的购物车</a>
+                    <span>|</span>
+                    <a href="user_center_order.html">我的订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="search_bar clearfix">
+        <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+        <div class="sub_page_name fl">&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+        <form method="get" action="/search.html" class="search_con fr mt40">
+            <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+            <input type="submit" class="input_btn fr" name="" value="搜索">
+        </form>
+    </div>
+
+    <div class="main_con clearfix">
+        <div class="left_menu_con clearfix">
+            <h3>用户中心</h3>
+            <ul>
+                <li><a href="user_center_info.html">· 个人信息</a></li>
+                <li><a href="user_center_order.html" class="active">· 我的订单</a></li>
+                <li><a href="user_center_site.html" >· 收货地址</a></li>
+                <li><a href="user_center_pass.html">· 修改密码</a></li>
+                <li><a href="user_center_tijian.html">· 体检记录</a></li>
+                <li><a href="user_center_DO.html">· 问诊订单</a></li>
+                <li><a href="user_center_TO.html" >· 体检预约</a></li>
+            </ul>
+        </div>
+
+
+        <!-- New Section for Tijian Records -->
+
+    <div class="tijian_con" v-if="orderRecords.length > 0">
+
+    <table class="tijian_table">
+        <thead>
+            <tr>
+                <th>订单号</th>
+                <th>总数量</th>
+                <th>总金额</th>
+                <th>运费</th>
+                <th>商品详情</th>
+                <th>商品状态</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="record in orderRecords" :key="record.order_id">
+                <td>{{ record.order_id }}</td>
+                <td>{{ record.total_count }}</td>
+                <td>{{ record.total_amount }}</td>
+                <td>{{ record.freight }}</td>
+                <td>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>商品名称</th>
+                                <th>数量</th>
+                                <th>单价</th>
+                                <th>图片</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="goods in record.order_goods" :key="goods.sku_name">
+                                <td>{{ goods.sku_name }}</td>
+                                <td>{{ goods.count }}</td>
+                                <td>{{ goods.price }}</td>
+                                <td><img :src="'http://127.0.0.1:8080/media/' + goods.default_image" style="width: 195px;height:112px;"></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>{{ record.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        <div v-else>
+            <p>No Tijian Records available.</p>
+        </div>
+
+        <!-- ... (existing code) ... -->
+    </div>
+
+
+
+	<div class="footer">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2024 xxxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    粤ICP备*******8号</p>
+	</div>
+   <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/user_center_order.js"></script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>美多商城-首页</title>
+	<link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./js/host.js"></script>
+    <script type="text/javascript" src="./js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="./js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-1.12.4.min.js"></script>
+    <style>
+       body {
+
+    background-image: url('/images/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+</head>
+<body>
+	<div id="app" v-cloak>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="./login.html">登录</a>
+					<span>|</span>
+					<a href="./register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="./user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="./cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="./user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+	<div class="search_bar clearfix">
+		<a href="index.html" class="logo fl"><img src="./images/logo.png"></a>
+		<div class="search_wrap fl">
+			<form method="get" action="/search.html" class="search_con">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索药品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+
+		</div>	
+		
+		<div class="guest_cart fr">
+            <a href="/carts/" class="cart_name fl">我的购物车</a>
+            <div class="goods_count fl" id="show_count">[[ cart_total_count ]]</div>
+            <ul class="cart_goods_show">
+                <li v-for="cart in carts">
+                    <img :src="cart.default_image_url" alt="商品图片">
+                    <h4>[[ cart.name ]]</h4>
+                    <div>[[ cart.count ]]</div>
+                </li>
+            </ul>
+		</div>
+	</div>
+
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="index.html">首页</a></li>
+				<li class="interval">|</li>
+				<li><a style="font-weight: bold;" href="order.html">问诊预约</a></li>
+				<li class="interval">|</li>
+				<li><a href="article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+				<li><a href="http://127.0.0.1:8000/tijian_order/">体检预约</a></li>
+                <li class="interval">|</li>
+				<li><a href="/zc.html">健康自测</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+
+    <div class="list_model">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">儿科/呼吸科</h3>
+
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+
+                <img src="http://127.0.0.1:8000/media/doctor_images/children.png">
+
+
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f1_tab===1" class="goods_list fl">
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/1" title="刘杰出医生">刘杰出医生</a></h4>
+                            <div class="price">儿科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/4" title="王刚医生">王刚医生</a></h4>
+                            <div class="price">儿科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor3.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/5" title="王语医生">王语医生</a></h4>
+                            <div class="price">儿科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/6" title="周华医生">周华医生</a></h4>
+                            <div class="price">儿科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/7" title="张德医生">张德医生</a></h4>
+                            <div class="price">儿科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/8" title="刘坤医生">刘坤医生</a></h4>
+                            <div class="price">呼吸科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/9">张磊医生</a></h4>
+                            <div class="price">呼吸科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor3.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/10" title="张梦红">张梦红医生</a></h4>
+                            <div class="price">呼吸科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/11" title="袁非医生">袁非医生</a></h4>
+                            <div class="price">呼吸科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/12" title="马全医生">马全医生</a></h4>
+                            <div class="price">呼吸科</div>
+                        </li>
+                    
+                </ul>
+                <ul v-show="f1_tab===2" class="goods_list fl">
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMg_qACjBsAAActVXQUoc6433633"></a>
+                            <h4><a href="http://www.itcast.cn" title="华为P10 全网通">华为P10 全网通</a></h4>
+                            <div class="price">￥3488.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhBeAaZ9OAABuZHjPsV88472096"></a>
+                            <h4><a href="http://www.itcast.cn" title="小米 红米5 全网通版">小米 红米5 全网通版</a></h4>
+                            <div class="price">￥699.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhDWAEwgEAABPce7je4w1228836"></a>
+                            <h4><a href="http://www.itcast.cn" title="魅蓝 Note6 全网通公开版">魅蓝 Note6 全网通公开版</a></h4>
+                            <div class="price">￥1499.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhFuAB5eZAAAaQIF-UNs3707070"></a>
+                            <h4><a href="http://www.itcast.cn" title="红米5Plus 全网通">红米5Plus 全网通</a></h4>
+                            <div class="price">￥1299.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhH6AAjD4AABS1vBu6x01229529"></a>
+                            <h4><a href="http://www.itcast.cn" title="荣耀9青春版 标配版">荣耀9青春版 标配版</a></h4>
+                            <div class="price">￥1099.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhRCAB5hsAAAQZye4aIM5257140"></a>
+                            <h4><a href="http://www.itcast.cn" title="华为 畅享8 全网通">华为 畅享8 全网通</a></h4>
+                            <div class="price">￥1299.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhVCAFC8tAABonSNLGHA3584281"></a>
+                            <h4><a href="http://www.itcast.cn" title="荣耀 畅玩7X 尊享版">荣耀 畅玩7X 尊享版</a></h4>
+                            <div class="price">￥1799.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhW6Ac7QMAABd3TzhhGw0583536"></a>
+                            <h4><a href="http://www.itcast.cn" title="华为 nova3e 全网通 幻夜黑">华为 nova3e 全网通 幻夜黑</a></h4>
+                            <div class="price">￥1999.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhYyAOjMVAABU1kCuf_48013827"></a>
+                            <h4><a href="http://www.itcast.cn" title="魅族 RPO 7 Plus 全网通">魅族 RPO 7 Plus 全网通</a></h4>
+                            <div class="price">￥2799.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhaSAK3QLAAA7LKRGwzQ0348867"></a>
+                            <h4><a href="http://www.itcast.cn" title="三星 S8 Plus 全网通">三星 S8 Plus 全网通</a></h4>
+                            <div class="price">￥5499.00</div>
+                        </li>
+
+                </ul>
+                <ul v-show="f1_tab===3" class="goods_list fl">
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhjOAdMNbAAAR1JGA_cA5064317"></a>
+                            <h4><a href="http://www.itcast.cn" title="Aogress一体双用数据线DC-28金">Aogress一体双用数据线DC-28金</a></h4>
+                            <div class="price">￥29.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhlSAP_27AAAW_YBdNEk8530912"></a>
+                            <h4><a href="http://www.itcast.cn" title="黑客iPhone X 钢化膜">黑客iPhone X 钢化膜</a></h4>
+                            <div class="price">￥29.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhniADXZpAAALTWT-dfQ6160056"></a>
+                            <h4><a href="http://www.itcast.cn" title="黑客 3D曲面 全屏钢化膜">黑客 3D曲面 全屏钢化膜</a></h4>
+                            <div class="price">￥99.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhpiAV3lJAABiLlkgy2Y9166507"></a>
+                            <h4><a href="http://www.itcast.cn" title="三星（SAMSUNG）存储卡 64G">三星（SAMSUNG）存储卡 64G</a></h4>
+                            <div class="price">￥169.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhveAOh8EAAA1ykQ-kAU6900992"></a>
+                            <h4><a href="http://www.itcast.cn" title="浦诺菲(pivoful) PUC-15 Type-C 数据线">浦诺菲(pivoful) PUC-15 Type-C 数据线</a></h4>
+                            <div class="price">￥19.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMhyuAEf95AABFDj_owsg4241256"></a>
+                            <h4><a href="http://www.itcast.cn" title="好格(Aogress) A-100E移动电源">好格(Aogress) A-100E移动电源</a></h4>
+                            <div class="price">￥99.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMh0qAavITAABOVXYg3SI5232882"></a>
+                            <h4><a href="http://www.itcast.cn" title="卡士奇 存储卡">卡士奇 存储卡</a></h4>
+                            <div class="price">￥29.90</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMh4eAWdF2AAA-Fkkc5rM1921911"></a>
+                            <h4><a href="http://www.itcast.cn" title="捷波朗(Jabra)OTE23 运动蓝牙耳机">捷波朗(Jabra)OTE23 运动蓝牙耳机</a></h4>
+                            <div class="price">￥299.00</div>
+                        </li>
+
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMh62AUlDTAAA-SfqPszY5890026"></a>
+                            <h4><a href="http://www.itcast.cn" title="besiterBST-0109FO强尼思">besiterBST-0109FO强尼思</a></h4>
+                            <div class="price">￥99.00</div>
+                        </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="list_model model02">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">口腔科/耳鼻喉科</h3>
+            <div class="subtitle fr">
+                <a @mouseenter="f2_tab=1" :class="f2_tab===1?'active':''">加价换购</a>
+                <a @mouseenter="f2_tab=2" :class="f2_tab===2?'active':''">畅享低价</a>
+            </div>
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+                <img src="http://127.0.0.1:8000/media/doctor_images/oral.png">
+
+
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f2_tab===1" class="goods_list fl">
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/13" title="王季康医生">王季康医生</a></h4>
+                            <div class="price">口腔科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/14" title="杨先医生">杨先医生</a></h4>
+                            <div class="price">口腔科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor3.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/15" title="高洁医生">高洁医生</a></h4>
+                            <div class="price">口腔科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor3.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/16" title="刘宁医生">刘宁医生</a></h4>
+                            <div class="price">口腔科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/17" title="刘通达医生">刘通达医生</a></h4>
+                            <div class="price">口腔科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/18" title="王浩医生">王浩医生</a></h4>
+                            <div class="price">耳鼻喉科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor2.png"></a>
+                            <h4><a href=http://127.0.0.1:8000/doctor_order/19" title="常思洁医生">常思洁医生</a></h4>
+                            <div class="price">耳鼻喉科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor3.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/20" title="李丽医生">李丽医生</a></h4>
+                            <div class="price">耳鼻喉科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/21" title="杨明杰医生">杨明杰医生</a></h4>
+                            <div class="price">耳鼻喉科</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://127.0.0.1:8000/media/doctor_images/doctor1.png"></a>
+                            <h4><a href="http://127.0.0.1:8000/doctor_order/22" title="黄雨医生">黄雨医生</a></h4>
+                            <div class="price">￥1499.00</div>
+                        </li>
+                    
+                </ul>
+                <ul v-show="f2_tab===2" class="goods_list fl">
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMisuAJnyWAABYJxXfN8w9822011"></a>
+                            <h4><a href="http://www.itcast.cn" title="小米九号平衡车">小米九号平衡车</a></h4>
+                            <div class="price">加100元送小米汽车</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrMivSAUTWcAAANpJ-t9xg5938130"></a>
+                            <h4><a href="http://www.itcast.cn" title="小米空气净化器2">小米空气净化器2</a></h4>
+                            <div class="price">加价10元送滤芯</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrY-AdBacAAA7DYB8sjU0120233"></a>
+                            <h4><a href="http://www.itcast.cn" title="Apple Watch S3 GPS版">Apple Watch S3 GPS版</a></h4>
+                            <div class="price">加1元换够蓝牙耳机</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrd2AbRH-AAALOATUqqM8030242"></a>
+                            <h4><a href="http://www.itcast.cn" title="裴讯智能体脂秤S7P">裴讯智能体脂秤S7P</a></h4>
+                            <div class="price">加1元换够南浮电池</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrf-AJ1ZjAAB_vAApFkw8201014"></a>
+                            <h4><a href="http://www.itcast.cn" title="360儿童手表电话SE2">360儿童手表电话SE2</a></h4>
+                            <div class="price">￥169.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrkOAYXcbAABQocGJtes4517631"></a>
+                            <h4><a href="http://www.itcast.cn" title="S2PGHW-521蓝牙耳机">S2PGHW-521蓝牙耳机</a></h4>
+                            <div class="price">￥449.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrmeAPQkiAAAKCg08y3w4028142"></a>
+                            <h4><a href="http://www.itcast.cn" title="科大讯飞 翻译机">科大讯飞 翻译机</a></h4>
+                            <div class="price">加1元换够电池</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNroeAUxHkAAAKhSBwnSk3723835"></a>
+                            <h4><a href="http://www.itcast.cn" title="Apple AirPods蓝牙耳机">Apple AirPods蓝牙耳机</a></h4>
+                            <div class="price">￥1288.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrq-AbFajAABb8Hp05302964728"></a>
+                            <h4><a href="http://www.itcast.cn" title="ILIFE V5 智能扫地机器人">ILIFE V5 智能扫地机器人</a></h4>
+                            <div class="price">加1元换够充电器</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNrs2AMHPbAABMxVYJeMo0602527"></a>
+                            <h4><a href="http://www.itcast.cn" title="360记录仪M301">360记录仪M301</a></h4>
+                            <div class="price">￥319.00</div>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="list_model model03">
+        <div class="list_title clearfix">
+            <h3 class="fl" id="model01">3F 家居家装</h3>
+            <div class="subtitle fr">
+                <a @mouseenter="f3_tab=1" :class="f3_tab===1?'active':''">生活用品</a>
+                <a @mouseenter="f3_tab=2" :class="f3_tab===2?'active':''">厨房用品</a>
+            </div>
+        </div>
+        <div class="goods_con clearfix">
+            <div class="goods_banner fl">
+                <img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNsbqAbi4CAABYmW4pmPA1782942">
+                <div class="channel">
+                    
+                        <a href="http://www.itcast.cn">家具日用</a>
+                    
+                        <a href="http://www.itcast.cn">家纺寝具</a>
+                    
+                        <a href="http://www.itcast.cn">住宅家具</a>
+                    
+                </div>
+                <div class="key_words">
+                    
+                        <a href="http://www.itcast.cn">厨具餐饮</a>
+                    
+                        <a href="http://www.itcast.cn">被子</a>
+                    
+                        <a href="http://www.itcast.cn">实木床</a>
+                    
+                        <a href="http://www.itcast.cn">箭牌马桶</a>
+                    
+                        <a href="http://www.itcast.cn">指纹锁</a>
+                    
+                        <a href="http://www.itcast.cn">电饭煲</a>
+                    
+                        <a href="http://www.itcast.cn">热水器</a>
+                    
+                        <a href="http://www.itcast.cn">席梦思</a>
+                    
+                        <a href="http://www.itcast.cn">沙发</a>
+                    
+                </div>
+            </div>
+            <div class="goods_list_con">
+                <ul v-show="f3_tab===1" class="goods_list fl">
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNsuuAQo25AAAmP_AGNMA9808303"></a>
+                            <h4><a href="http://www.itcast.cn" title="洁柔纸巾">洁柔纸巾</a></h4>
+                            <div class="price">￥45.90</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNsxaAeU4HAAAkQDJCGSY6809195"></a>
+                            <h4><a href="http://www.itcast.cn" title="花仙子除湿剂">花仙子除湿剂</a></h4>
+                            <div class="price">￥19.90</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNszaAMu2PAACwnbap8zI9797082"></a>
+                            <h4><a href="http://www.itcast.cn" title="超能洗衣液">超能洗衣液</a></h4>
+                            <div class="price">惊喜价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNs2SAf2DEAAAGl2-3v5k2172012"></a>
+                            <h4><a href="http://www.itcast.cn" title="创简坊 扫帚">创简坊 扫帚</a></h4>
+                            <div class="price">惊喜价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNs4KAIlJKAAAQmKypd2c1901811"></a>
+                            <h4><a href="http://www.itcast.cn" title="万象玻璃杯">万象玻璃杯</a></h4>
+                            <div class="price">爆款热销</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNs6aAea7bAAAIoddXpoA5854653"></a>
+                            <h4><a href="http://www.itcast.cn" title="爱丽丝收纳箱">爱丽丝收纳箱</a></h4>
+                            <div class="price">￥66.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/01/CtM3BVrNs8WAZsplAAB-c4wo3kI9077289"></a>
+                            <h4><a href="http://www.itcast.cn" title="塑料袋 加厚">塑料袋 加厚</a></h4>
+                            <div class="price">跳楼价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNs-SAaLqBAAAPB44z-fw7327519"></a>
+                            <h4><a href="http://www.itcast.cn" title="特白惠 塑料杯">特白惠 塑料杯</a></h4>
+                            <div class="price">实惠价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtA6AFtbDAAAVJIjSdl43078544"></a>
+                            <h4><a href="http://www.itcast.cn" title="Bormioli Rocco意大利进口水果杯">Bormioli Rocco意大利进口水果杯</a></h4>
+                            <div class="price">买一送一</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtDGAdlzlAAAZZRjOIrQ5323041"></a>
+                            <h4><a href="http://www.itcast.cn" title="宜兴紫砂壶">宜兴紫砂壶</a></h4>
+                            <div class="price">￥220.00</div>
+                        </li>
+                    
+                </ul>
+                <ul v-show="f3_tab===2" class="goods_list fl">
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtMWANuqTAACac0TCaxU2674435"></a>
+                            <h4><a href="http://www.itcast.cn" title="苏泊尔 炒锅">苏泊尔 炒锅</a></h4>
+                            <div class="price">￥329.00 惠</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtOiAKex1AAAOZc14LLQ2319263"></a>
+                            <h4><a href="http://www.itcast.cn" title="双立人 多用双刀">双立人 多用双刀</a></h4>
+                            <div class="price">惊喜价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtRGAGUbMAACY-WS_oQg9101415"></a>
+                            <h4><a href="http://www.itcast.cn" title="爱仕达高压锅">爱仕达高压锅</a></h4>
+                            <div class="price">特惠价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtUGACPW-AAAWNwYc_Yg9317761"></a>
+                            <h4><a href="http://www.itcast.cn" title="维艾圆形不秀钢盆">维艾圆形不秀钢盆</a></h4>
+                            <div class="price">￥69.90</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtWKAUKPkAADhQEAcAgQ4155172"></a>
+                            <h4><a href="http://www.itcast.cn" title="家栢利304不锈钢壁挂">家栢利304不锈钢壁挂</a></h4>
+                            <div class="price">￥198.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtY2ABEOfAAAWaWuGKss3304555"></a>
+                            <h4><a href="http://www.itcast.cn" title="生物海瓷">生物海瓷</a></h4>
+                            <div class="price">震撼价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtamAdrqPAAAYsg3AvQ86108884"></a>
+                            <h4><a href="http://www.itcast.cn" title="实木筷">实木筷</a></h4>
+                            <div class="price">买二送一</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtcOAYTH1AABVIz70wKU1556174"></a>
+                            <h4><a href="http://www.itcast.cn" title="菜板">菜板</a></h4>
+                            <div class="price">只要￥149.00</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNteKAZhHCAAAMrIL-ugE2533088"></a>
+                            <h4><a href="http://www.itcast.cn" title="刻度玻璃瓶">刻度玻璃瓶</a></h4>
+                            <div class="price">白菜价</div>
+                        </li>
+                    
+                        <li>
+                            <a href="http://www.itcast.cn" class="goods_pic"><img src="http://image-python.itheima.net/group1/M00/00/02/CtM3BVrNtf-AY0FGAAAZwGscZq42512400"></a>
+                            <h4><a href="http://www.itcast.cn" title="韩国进口 密封盒">韩国进口 密封盒</a></h4>
+                            <div class="price">￥39.00</div>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2016 北京美多商业股份有限公司 All Rights Reserved</p>
+        <p>电话：010-****888 京ICP备*******8号</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="./js/slide.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+</body>
+</html>

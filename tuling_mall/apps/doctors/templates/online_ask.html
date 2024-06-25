@@ -1,0 +1,20 @@
+{% extends "dbase2.html" %}
+
+{% block bar %}
+
+<div style="display: flex; flex-direction: column; background-color: white; width: 1200px; height: 800px; margin-left: 160px;">
+    {% for record in ask %}
+    <div style="margin-left: 340px; margin-top: 45px;">
+        <!-- 显示时间、用户名和查看详情链接 -->
+        <div style="font-size: 21px;">
+            <p>记录时间: {{ record.current_time }} - 用户名: {{ record.username }} <a href="{% url 'record_detail' record.id %}">查看详情</a></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block main %}
+
+
+{% endblock %}

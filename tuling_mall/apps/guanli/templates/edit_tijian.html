@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">体检记录页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">体检记录<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+{#                            <input type="text" class="form-control" placeholder="Search for...">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button class="btn btn-default" type="button">搜索</button>#}
+{#                            </span>#}
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+    <form action="" method="post">
+        <p>
+            <input type="hidden" name="id" value="{{ tijian_obj.id }}">
+        </p>
+        <p>
+            体检用户:<input type="text" name="user_id" value="{{ tijian_obj.user_id }}">
+        </p>
+        <p>
+            体检日期:<input type="text" name="tijian_Data" value="{{ tijian_obj.tijian_Data }}">
+        </p>
+    <p>
+            身高:<input type="text" name="height" value="{{ tijian_obj.height }}">
+        </p>
+    <p>
+            体重:<input type="text" name="weight" value="{{ tijian_obj.weight }}">
+        </p>
+    <p>
+            左眼视力:<input type="text" name="lefteye" value="{{ tijian_obj.lefteye }}">
+        </p>
+    <p>
+            右眼视力:<input type="text" name="righteye" value="{{ tijian_obj.righteye }}">
+        </p>
+    <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+
+    </form>
+
+
+
+
+{% endblock %}

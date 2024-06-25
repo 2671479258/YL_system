@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">文章管理界面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加文章信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+
+    <p>
+        文章标题<input type="text" name="title">
+    </p>
+    <p>文章作者:
+        <select name="doctor">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.doctorname }}</option>
+            {% endfor %}
+        </select>
+    </p>
+    <p>
+        文章简介<input type="text" name="introd">
+    </p>
+    <p>文章类型:
+        <select name="category_id">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+    </p>
+     <p>
+         文章内容<br>
+         <textarea type="" name="content" placeholder="请填写文章内容" style="width: 800px;height: 1200px;"></textarea>
+    </p>
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+
+
+{% endblock %}

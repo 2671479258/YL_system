@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load mytags %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">医生管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">医生管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                
+      </div>
+ <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_article/">新增医生</a>
+        </div>
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>文章id</th>
+            <th>标题</th>
+            <th>作者</th>
+            <th>内容</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+{% for article in Article_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+
+    <td>{{ article.id }}</td>
+    <td>{{ article.title }}</td>
+        <td>{{ article.article.doctorname }}</td>
+        <td>{% show_article article.content 20 %}</td>
+
+
+
+        <td>
+            <a href="/edit_article/?id={{article.id}}">修改</a>
+            <a href="/delete_department/?id={{department_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}`
+    </tbody>
+</table>
+
+{% endblock %}

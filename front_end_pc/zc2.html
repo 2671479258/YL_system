@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>青少年心理健康测试</title>
+    <style>
+        /* 你的 CSS 样式 */
+    </style>
+</head>
+<body>
+    <!-- 你的页面内容 -->
+    <div class="header_con">
+        <!-- Header 部分 -->
+    </div>
+
+    <div class="search_bar clearfix">
+        <!-- 搜索栏部分 -->
+    </div>
+
+    <div class="navbar_con">
+        <!-- 导航栏部分 -->
+    </div>
+
+    <div style="margin-left: 700px;margin-top: 10px;font-size: 26px;color: #3eb8e9;">
+        <h2 style="font-weight: bold;">青少年心理健康测试</h2>
+    </div>
+
+    <!-- 心理健康自测表单 -->
+    <div style="display: flex;flex-direction: row;">
+        <!-- 左侧说明 -->
+        <div style="margin-left: 78px;width: 287px;height: 400px;border :1px solid #000;background-color: #f9dddd">
+            <div style="margin-left: 80px;margin-top: 20px;font-size:22px;font-weight: bold;">青少年心理健康测试说明</div>
+            <div style="margin-top: 13px;font-size: 16px">
+                此青少年心理健康测试旨在帮助青少年了解自己的心理健康状况，提供一些初步的参考和建议。测试结果并非专业医学诊断，如果您有严重的心理健康问题，请咨询专业医生的建议。<br><br>隐私保护：<br><br>用户的测试结果将被保密处理，不会以任何形式传播或分享给第三方。我们重视您的隐私，并采取了相应的安全措施以保护您的个人信息。
+            </div>
+        </div>
+
+        <!-- 右侧测试表单 -->
+        <div style="margin-left: 228px;width: 550px;margin-top: 29px">
+            <form id="teenSurveyForm" action="/submit" method="post">
+                <div>
+    <div style="font-size: 25px">1. 你觉得与同龄人相处如何？</div>
+    <label style="font-size: 20px" for="option1_2">很好</label>
+    <input type="radio" id="option1_2" name="teenOptions1" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option1_1">一般</label>
+    <input type="radio" id="option1_1" name="teenOptions1" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option1_0">不好</label>
+    <input type="radio" id="option1_0" name="teenOptions1" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">2. 你对学习的态度如何？</div>
+    <label style="font-size: 20px" for="option2_2">积极向上</label>
+    <input type="radio" id="option2_2" name="teenOptions2" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option2_1">一般般</label>
+    <input type="radio" id="option2_1" name="teenOptions2" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option2_0">不太感兴趣</label>
+    <input type="radio" id="option2_0" name="teenOptions2" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">3. 你是否经常感到焦虑或紧张？</div>
+    <label style="font-size: 20px" for="option3_2">是的</label>
+    <input type="radio" id="option3_2" name="teenOptions3" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option3_1">偶尔</label>
+    <input type="radio" id="option3_1" name="teenOptions3" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option3_0">从不</label>
+    <input type="radio" id="option3_0" name="teenOptions3" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">4. 你觉得自己的家庭关系如何？</div>
+    <label style="font-size: 20px" for="option4_2">和谐融洽</label>
+    <input type="radio" id="option4_2" name="teenOptions4" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option4_1">一般般</label>
+    <input type="radio" id="option4_1" name="teenOptions4" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option4_0">不太好</label>
+    <input type="radio" id="option4_0" name="teenOptions4" value="0"><br><br>
+</div>
+<div>
+    <div style="font-size: 25px">5. 你平时的作息规律吗？</div>
+    <label style="font-size: 20px" for="option5_2">很规律</label>
+    <input type="radio" id="option5_2" name="teenOptions5" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option5_1">一般般</label>
+    <input type="radio" id="option5_1" name="teenOptions5" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option5_0">不规律</label>
+    <input type="radio" id="option5_0" name="teenOptions5" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">6. 你是否经常感到孤独？</div>
+    <label style="font-size: 20px" for="option6_2">是的</label>
+    <input type="radio" id="option6_2" name="teenOptions6" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option6_1">偶尔</label>
+    <input type="radio" id="option6_1" name="teenOptions6" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option6_0">从不</label>
+    <input type="radio" id="option6_0" name="teenOptions6" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">7. 你对未来有明确的规划吗？</div>
+    <label style="font-size: 20px" for="option7_2">有</label>
+    <input type="radio" id="option7_2" name="teenOptions7" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option7_1">有一些</label>
+    <input type="radio" id="option7_1" name="teenOptions7" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option7_0">没有</label>
+    <input type="radio" id="option7_0" name="teenOptions7" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">8. 你是否容易发脾气？</div>
+    <label style="font-size: 20px" for="option8_2">是的</label>
+    <input type="radio" id="option8_2" name="teenOptions8" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option8_1">偶尔</label>
+    <input type="radio" id="option8_1" name="teenOptions8" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option8_0">从不</label>
+    <input type="radio" id="option8_0" name="teenOptions8" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">9. 你对自己的外貌和身材满意吗？</div>
+    <label style="font-size: 20px" for="option9_2">很满意</label>
+    <input type="radio" id="option9_2" name="teenOptions9" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option9_1">一般般</label>
+    <input type="radio" id="option9_1" name="teenOptions9" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option9_0">不太满意</label>
+    <input type="radio" id="option9_0" name="teenOptions9" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">10. 你对社交活动感兴趣吗？</div>
+    <label style="font-size: 20px" for="option10_2">非常感兴趣</label>
+    <input type="radio" id="option10_2" name="teenOptions10" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option10_1">一般般</label>
+    <input type="radio" id="option10_1" name="teenOptions10" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option10_0">不感兴趣</label>
+    <input type="radio" id="option10_0" name="teenOptions10" value="0"><br><br>
+</div>
+
+<div>
+    <div style="font-size: 25px">11. 你在学校的学习成绩如何？</div>
+    <label style="font-size: 20px" for="option11_2">优秀</label>
+    <input type="radio" id="option11_2" name="teenOptions11" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option11_1">一般</label>
+    <input type="radio" id="option11_1" name="teenOptions11" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option11_0">较差</label>
+    <input type="radio" id="option11_0" name="teenOptions11" value="0"><br><br>
+</div>
+
+
+<div>
+    <div style="font-size: 25px">12. 你是否经常感到压力很大？</div>
+    <label style="font-size: 20px" for="option12_2">是的</label>
+    <input type="radio" id="option12_2" name="teenOptions12" value="2">
+    <label style="font-size: 20px;margin-left: 22px" for="option12_1">偶尔</label>
+    <input type="radio" id="option12_1" name="teenOptions12" value="1">
+    <label style="font-size: 20px;margin-left: 22px" for="option12_0">从不</label>
+    <input type="radio" id="option12_0" name="teenOptions12" value="0"><br><br>
+</div>
+
+                <!-- 后续题目类似 -->
+
+                <button STYLE="margin-top: 10px;margin-left: 97px;font-size: 20px;background-color: #4CAF50; color: white;padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;" type="button" onclick="calculateTeenScore()">提交</button>
+            </form>
+
+            <div id="teenResult" style="font-size: 25px; margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript 脚本 -->
+    <script>
+        function calculateTeenScore() {
+            var radios = document.querySelectorAll('input[name^="teenOptions"]:checked');
+            var score = 0;
+
+            radios.forEach(function(radio) {
+                score += parseInt(radio.value);
+            });
+
+            document.getElementById('teenResult').innerHTML = '你的累计分数是：' + score;
+            redirectToTeenPage(score);
+        }
+
+        function redirectToTeenPage(score) {
+            if (score >= 10) {
+                window.location.href = 'teen_unH.html';
+            } else {
+                window.location.href = 'teen_H.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">用户信息页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加用户信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+
+    <p>
+        用户名<input type="text" name="username">
+    </p>
+    <p>
+        医生名<input type="text" name="doctorname">
+    </p>
+    <p>
+        密码<input type="text" name="password">
+    </p>
+     <p>
+        介绍<input type="text" name="introducation">
+    </p>
+    <p>所属科室:
+        <select name="which_department_id">
+            {% for department in departments %}
+                <option value="{{ department.id }}">{{ department.department_name }}</option>
+            {% endfor %}
+        </select>
+    </p>
+
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "dbase.html" %}
+
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">体检管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">添加体检记录<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                 <!-
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+
+    <p>
+        标题<input type="text" name="title">
+    </p>
+    <p>
+        作者id<input type="text" name="doctor">
+    </p>
+     <p>
+         简介<input type="text" name="introd">
+    </p>
+     <p>
+        日期<input type="text" name="release_data">
+    </p>
+     <p>
+        内容<input type="text" name="content">
+    </p>
+     <p>
+        分类<input type="text" name="category">
+    </p>
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+
+
+{% endblock %}

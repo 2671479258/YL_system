@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+
+
+<!--    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">-->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问诊预约</title>
+        <style>
+
+          a {
+    text-decoration: none; /* 去掉下划线 */
+    color: inherit; /* 继承父元素的颜色，如果有的话 */
+}
+
+a:hover {
+    color: blue; /* 悬停时链接颜色变为灰色 */
+}
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-size: 48px;
+        }
+
+        p {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 1px;
+            font-size: 30px;
+            color: #333333;
+        }
+
+        .header {
+            position: relative;
+            text-align: center;
+            background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+            color: white;
+        }
+
+        .inner-header {
+            height: 65vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+
+        .parallax>use:nth-child(1) {
+            /* 延迟2秒启动动画  */
+            animation-delay: -2s;
+            /* 设置动画持续时间为7秒 */
+            animation-duration: 7s;
+        }
+
+        .parallax>use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+
+        .parallax>use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+
+        .parallax>use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('submit').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // 这里添加其他的前端逻辑，例如验证表单等
+
+            // 获取表单数据
+            var formData = new FormData(document.getElementById('doctor_order'));
+
+            // 发送异步POST请求
+            fetch('{% url "user_order_doctor" %}', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())  // 将响应转换为 JSON 格式
+            .then(data => {
+                // 表单提交成功后的重定向逻辑
+                if (data.info === '400') {
+                    console.log('预约已满');
+                    alert('该医生的该时间预约已满，请选择其他医生进行预约！\n对您造成的不便，我们深感抱歉！' );
+                } else {
+                    // 表单提交成功后的重定向逻辑
+                    window.location.href = 'http://127.0.0.1:8080/index.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
+
+</head>
+<body>
+
+<div id='app' style="display: flex;flex-direction: row;margin-left: 550px;">
+    <div class="welcome fl">欢迎来到社区医疗服务系统!</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <div class="fr">
+        <div v-if="username">
+					欢迎您：<em>[[ username ]]</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="http://127.0.0.1:8080/login.html">登录</a>
+					<span>|</span>
+					<a href="http://127.0.0.1:8080/register.html">注册</a>
+				</div>
+    </div>
+</div>
+
+<div class="header" >
+
+
+
+
+
+
+
+
+
+    <div style="display: flex;flex-direction: row">
+        <div style="margin-left: 10px;margin-top: 5px;"><a href="http://127.0.0.1:8080/yl_index.html"><img src="http://127.0.0.1:8080/images/logo.png"></a></div>
+<div style="margin-left: 330px; margin-top: 20px; font-family: 'Noto Sans SC', sans-serif;font-size: 35px;color: black">社区医疗：问诊预约</div>
+
+    </div>
+ <div style="background-color: #63bf98; margin-top: 20px; padding: 20px;height: 550px;display: flex;flex-direction: column">
+
+     <div style="margin-top: 150px;margin-left: -550px;font-size: 20px;"><img src="http://127.0.0.1:8080/images/success.png"></div>
+         <div style="margin-top: -50px;"><p>预约已提交成功，请等待审核</p></div>
+
+<div style="margin-top: 100px;font-size: 25px;margin-left: -15px;color: black"><a href="http://127.0.0.1:8080/yl_index.html">点此返回首页</a></div>
+ </div>
+
+
+
+            </div>
+
+
+</div>
+
+
+</div>
+        </div>
+
+
+
+        <div>
+            <!--
+                xmlns:SVG命名看见URI
+                viewBox:定义当前视口（viewbox）中绘制区域的位置大小
+                preserveeAspectRatio：定义了绘制区域在视口中的对齐方式
+                shape-rendering：定义了形状的渲染方式（如何呈现头像的锯齿效果）
+             -->
+
+
+        </div>
+    </div>
+
+<script type="text/javascript" src="http://127.0.0.1:8080/js/slide.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/index.js"></script>
+</body>
+</html>

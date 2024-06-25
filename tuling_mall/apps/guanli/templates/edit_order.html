@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">问诊预约页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">修改问诊预约<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+{#                            <input type="text" class="form-control" placeholder="Search for...">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button class="btn btn-default" type="button">搜索</button>#}
+{#                            </span>#}
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+    <p><input type="hidden" name="id" value="{{ doctor_obj.id }}"></p>
+
+
+    <p>
+        用户名: <input type="text" name="username" value="{{ doctor_obj.username_id }}">
+    </p>
+    <p>
+        医生姓名: <input type="text" name="doctorname" value="{{ doctor_obj.doctorname_id }}">
+    </p>
+    <p>
+        预约时间: <input type="text" name="ordertime" value="{{ doctor_obj.ordertime }}">
+    </p>
+    <p>
+        预约信息: <input type="text" name="ordertip" value="{{ doctor_obj.ordertip }}">
+    </p>
+    <p>
+        过敏史:
+        <select name="allergy">
+            <option value="有" {% if doctor_obj.allergy == '有' %}selected{% endif %}>有</option>
+            <option value="无" {% if doctor_obj.allergy == '无' %}selected{% endif %}>无</option>
+        </select>
+    </p>
+    <p>
+        家族遗传病史:
+        <select name="familyHistory">
+            <option value="有" {% if doctor_obj.familyHistory == '有' %}selected{% endif %}>有</option>
+            <option value="无" {% if doctor_obj.familyHistory == '无' %}selected{% endif %}>无</option>
+        </select>
+    </p>
+    <p>
+        手机号码: <input type="text" name="mobile_phone" value="{{ doctor_obj.mobile_phone }}">
+    </p>
+    <p>
+        审核状态: <input type="checkbox" name="is_verified" {% if doctor_obj.is_verified %}checked{% endif %}>
+    </p>
+
+    <!-- New fields -->
+    <p>
+        是否规律饮食:
+        <select name="diet_habits">
+            <option value="是" {% if doctor_obj.diet_habits == '是' %}selected{% endif %}>是</option>
+            <option value="否" {% if doctor_obj.diet_habits == '否' %}selected{% endif %}>否</option>
+        </select>
+    </p>
+    <p>
+        是否定期运动:
+        <select name="exercise_habits">
+            <option value="是" {% if doctor_obj.exercise_habits == '是' %}selected{% endif %}>是</option>
+            <option value="否" {% if doctor_obj.exercise_habits == '否' %}selected{% endif %}>否</option>
+        </select>
+    </p>
+    <p>
+        近期是否经常性熬夜:
+        <select name="stay_up_late">
+            <option value="是" {% if doctor_obj.stay_up_late == '是' %}selected{% endif %}>是</option>
+            <option value="否" {% if doctor_obj.stay_up_late == '否' %}selected{% endif %}>否</option>
+        </select>
+    </p>
+    <p>
+        咨询费用: <input type="text" name="consultation_fee" value="{{ doctor_obj.consultation_fee }}">
+    </p>
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+{% endblock %}

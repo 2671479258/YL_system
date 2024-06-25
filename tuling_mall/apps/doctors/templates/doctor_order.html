@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问诊预约</title>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+        }
+        .welcome {
+            font-size: 18px;
+        }
+        .login_btn {
+            font-size: 18px;
+        }
+        .login_btn a {
+            color: white;
+            margin: 0 5px;
+        }
+        .main-header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #63bf98;
+            color: black;
+        }
+        .main-header img {
+            height: 50px;
+            margin-left: -750px;
+        }
+        .main-header h1 {
+            margin-top: 10px;
+            font-size: 36px;
+            font-weight: 300;
+        }
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+        .form-container, .info-container, .order-info-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        .form-container {
+            flex: 2;
+            max-width: 600px;
+        }
+        .info-container {
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+        }
+        .order-info-container {
+            flex: 1;
+            max-width: 400px;
+        }
+        .info-container img {
+            width: 150px;
+            height: 157px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px auto;
+        }
+        .info-container p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .order-info-container p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        label {
+            font-size: 18px;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, textarea, input {
+            width: calc(100% - 16px);
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('submit').addEventListener('click', function (event) {
+                event.preventDefault();
+                var mobile = document.getElementById('mobile').value;
+                var disease= document.getElementById('disease').value;
+                if (disease.trim() === "") {
+                    alert("病情描述不能为空！");
+                    return;
+                }
+                if (mobile.trim() === "") {
+                    alert("手机号码不能为空！");
+                    return;
+                }
+                var formData = new FormData(document.getElementById('doctor_order'));
+                fetch('{% url "user_order_doctor" %}', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.info === '400') {
+                        console.log('预约已满');
+                        alert('该医生的该时间预约已满，请选择其他医生进行预约！\n对您造成的不便，我们深感抱歉！');
+                    } else {
+                        window.location.href = 'http://127.0.0.1:8000/DO_success/';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            checkAppointmentStatus();
+        });
+
+        function checkAppointmentStatus() {
+            var appointmentTimeSelect = document.getElementById("appointment-time");
+            var options = appointmentTimeSelect.options;
+            var doctorName = "{{ doctor_id }}"; // Replace with actual doctor name or ID
+            console.log(doctorName)
+            for (let i = 0; i < options.length; i++) {
+                let ordertime = options[i].value;
+                axios.get('http://127.0.0.1:8000/api/check_appointment/', {
+                    params: {
+                        doctorname: doctorName,
+                        ordertime: ordertime
+                    }
+                })
+                .then(function (response) {
+                    if (response.data.is_full) {
+                        options[i].text += " (预约已满)";
+                        options[i].style.color = 'red'; // 将文字变为红色
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="welcome">欢迎来到社区医疗服务系统!</div>
+    <div class="login_btn">
+        {% if username %}
+            欢迎您：<em>{{ username }}</em>
+        {% else %}
+            <a href="http://127.0.0.1:8080/login.html">登录</a>
+            <span>|</span>
+            <a href="http://127.0.0.1:8080/register.html">注册</a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="main-header">
+    <a href="http://127.0.0.1:8080/yl_index.html"><img src="http://127.0.0.1:8080/images/logo.png" alt="Logo"></a>
+    <h1>社区医疗：问诊预约</h1>
+</div>
+
+<div class="content">
+    <div class="info-container">
+        <img src="http://127.0.0.1:8000/media/{{ doctor_image }}" alt="Doctor Image">
+        <p><strong>医生姓名：</strong>{{ doctorname }}</p>
+        <p><strong>医生职称：</strong>{{ doctor_title }}</p>
+        <p><strong>所属科室：</strong>{{ department }}</p>
+        <p><strong>科室地址：</strong>{{ department_area }}</p>
+    </div>
+    <div class="form-container">
+        <form action="{% url 'user_order_doctor' %}" method="post" id="doctor_order">
+            <label for="appointment-time">预约时间：</label>
+            <select id="appointment-time" name="ordertime"></select>
+
+            <label for="diet-habits">是否规律饮食：</label>
+            <select id="diet-habits" name="dietHabits">
+                <option value="是">是</option>
+                <option value="否">否</option>
+            </select>
+
+            <label for="exercise-habits">是否定期运动：</label>
+            <select id="exercise-habits" name="exerciseHabits">
+                <option value="是">是</option>
+                <option value="否">否</option>
+            </select>
+
+            <label for="stay-up-late">近期是否经常性熬夜：</label>
+            <select id="stay-up-late" name="stayUpLate">
+                <option value="是">是</option>
+                <option value="否">否</option>
+            </select>
+
+            <label for="disease">病情说明：</label>
+            <textarea name="Disease" id="disease"></textarea>
+
+            <label for="mobile">手机号码：</label>
+            <input type="text" id="mobile" name="mobile">
+
+            <button type="submit" id="submit">提交预约</button>
+        </form>
+    </div>
+    <div class="order-info-container">
+        <p><strong>订单说明</strong></p>
+        <p style="color: red; font-size: 24px;">预约费用：{{ consultation_fee }}</p>
+        <p>现已开通在线医生问诊预约服务，旨在为您提供更加便捷、高效的医疗服务体验。为了保障您的预约权益及医生的工作秩序，我们将收取费用{{ consultation_fee }}元，其中已包含预约费用10元。感谢您的理解与支持。</p>
+        <p>注意：根据医生的职称不同，收取的预约费用也有所不同</p>
+    </div>
+</div>
+
+<script>
+    // 获取当前日期和时间
+    var currentDate = new Date();
+    var currentHour = currentDate.getHours();
+    var currentDay = currentDate.getDate();
+    var currentMonth = currentDate.getMonth() + 1; // 月份从0开始，所以要加1
+
+    // 选择元素
+    var appointmentTimeSelect = document.getElementById("appointment-time");
+
+    // 添加基于当前时间的选项
+    addOptions(currentDate);
+
+    // 辅助函数：添加选项
+    function addOptions(date) {
+        for (var i = 0; i < 2; i++) {  // 添加当天和第二天的选项
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            // 添加五个时间点的选项
+            addOption(date, "早上8点");
+            addOption(date, "早上10点");
+            addOption(date, "下午2点");
+            addOption(date, "下午4点");
+            addOption(date, "晚上8点");
+
+            // 切换到下一天
+            date.setDate(day + 1);
+        }
+    }
+
+    // 辅助函数：添加单个选项
+    function addOption(date, timeDescription) {
+        var optionValue = formatDate(date) + " " + timeDescription;
+        appointmentTimeSelect.options.add(new Option(optionValue, optionValue));
+    }
+
+    // 辅助函数：将日期格式化为"YYYY年MM月DD日"的字符串
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return year + "年" + month + "月" + day + "日";
+    }
+</script>
+<script src="http://127.0.0.1:8080/js/common.js"></script>
+</body>
+</html>

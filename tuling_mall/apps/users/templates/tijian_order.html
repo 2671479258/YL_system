@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体检预约</title>
+    <style>
+        .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px; /* 可选：添加一些内边距来提高可读性 */
+    box-sizing: border-box; /* 可选：确保内边距不会影响宽度 */
+    z-index: 1; /* 确保它覆盖在其他内容之上 */
+}
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-size: 48px;
+        }
+
+        p {
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 1px;
+            font-size: 30px;
+            color: #333333;
+        }
+
+        .header {
+            position: relative;
+            text-align: center;
+            background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+            color: white;
+        }
+
+        .inner-header {
+            height: 65vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .waves {
+            position: relative;
+            width: 100%;
+            height: 15vh;
+            margin-bottom: -7px;
+            min-height: 100px;
+            max-height: 150px;
+        }
+
+        .content {
+            position: relative;
+            height: 20vh;
+            text-align: center;
+            background-color: white;
+        }
+
+        .parallax>use {
+            /* 使use元素执行move-forever动画 */
+            animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+        }
+
+        .parallax>use:nth-child(1) {
+            /* 延迟2秒启动动画  */
+            animation-delay: -2s;
+            /* 设置动画持续时间为7秒 */
+            animation-duration: 7s;
+        }
+
+        .parallax>use:nth-child(2) {
+            animation-delay: -3s;
+            animation-duration: 10s;
+        }
+
+        .parallax>use:nth-child(3) {
+            animation-delay: -4s;
+            animation-duration: 13s;
+        }
+
+        .parallax>use:nth-child(4) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        @keyframes move-forever {
+            0% {
+                transform: translate3d(-90px, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(85px, 0, 0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .waves {
+                height: 40px;
+                min-height: 40px;
+            }
+
+            .content {
+                height: 30vh;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('submit').addEventListener('click', function (event) {
+                event.preventDefault();
+
+                // 这里添加其他的前端逻辑，例如验证表单等
+
+                // 获取表单数据
+                var formData = new FormData(document.getElementById('tijian_order'));
+
+                // 发送异步POST请求
+                fetch('{% url "user_order_tijian" %}', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                     // 表单提交成功后的重定向逻辑
+                if (data.info === '400') {
+                    console.log('预约已满');
+                    alert('该时间段体检预约已满，请选择其他时间段！\n对您造成的不便，我们深感抱歉！' );
+                } else {
+                    // 表单提交成功后的重定向逻辑
+                    window.location.href = 'http://127.0.0.1:8080/index.html';
+                }
+            })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div style="display: flex;flex-direction: row;margin-left: 550px;">
+    <div class="welcome fl">欢迎来到社区医疗服务系统!</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <div class="fr">
+        {% if username %}
+            <div class="login_btn fl">
+                欢迎您：<em>{{ username }}</em>
+
+            </div>
+        {% else %}
+            <div class="login_btn fl" style="margin-left: 100px">
+                <a href="http://127.0.0.1:8080/login.html">登录</a>
+                <span>|</span>
+                <a href="http://127.0.0.1:8080/register.html">注册</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="header">
+        <div class="inner-header flex"></div>
+        <div class="overlay">
+            <div style="width: 80%; background-color: white; height: 400px;margin-left: 153px;">
+        <div>
+    <div style="display: flex;flex-direction: row">
+        <div style="margin-left: 10px;margin-top: 5px;"><a href="http://127.0.0.1:8080/index.html"><img src="http://127.0.0.1:8080/images/logo.png"></a></div>
+<div style="margin-left: 196px; margin-top: 20px; font-family: 'Noto Sans SC', sans-serif;font-size: 35px;color: black">社区医疗：体检预约</div>
+
+    </div>
+ <div style="background-color: #63bf98; margin-top: 20px; padding: 20px;height: 350px;">
+        <form action="{% url 'user_order_tijian' %}" method="post" id="tijian_order" style="margin-left: 5px;">
+            <div class="form">
+                <label for="appointment-time" style="color:black;font-size: 20px;">预约时间：</label>
+                <select id="appointment-time" name="ordertime" style="margin-bottom: 10px;"></select>
+                <br><br>
+                <label for="health-checkup" style="color:black;font-size: 20px;margin-left: -42px;">体检类型：</label>
+                <select id="health-checkup" name="checkupType" style="margin-bottom: 10px;">
+                    <option value="普通体检">普通体检：100块</option>
+                    <option value="高级体检">高级体检：200块</option>
+                    <option value="全面体检">全面体检：300块</option>
+                </select>
+                <br><br>
+<label for="allergy" style="color:black;font-size: 20px;margin-left: -123px;">有无过敏史：</label>
+            <select id="allergy" name="allergy" style="margin-bottom: 10px;">
+                <option value="有">有</option>
+                <option value="无">无</option>
+            </select>
+            <br><br>
+            <label for="family-history" style="color:black;font-size: 20px;margin-left: -63px;">有无家族遗传病史：</label>
+            <select id="family-history" name="familyHistory" style="margin-bottom: 10px;">
+                <option value="有">有</option>
+                <option value="无">无</option>
+            </select>
+            <br><br>
+
+                <label for="password" style="color:black;font-size: 20px;margin-left: -169px;">病情说明：</label>
+                <br>
+<textarea name="Disease" style="height: 100px; width: 305px; margin-left: 39px; margin-top: 10px; word-wrap: break-word;"></textarea>
+                <br>
+                <button type="submit" id="submit" style="margin-top:35px;background-color: #4CAF50; color: white; margin-left:28px;padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">提交预约</button>
+
+    <script>
+    // 获取当前日期和时间
+    var currentDate = new Date();
+    var currentHour = currentDate.getHours();
+    var currentDay = currentDate.getDate();
+    var currentMonth = currentDate.getMonth() + 1; // 月份从0开始，所以要加1
+
+    // 选择元素
+    var appointmentTimeSelect = document.getElementById("appointment-time");
+
+    // 添加基于当前时间的选项
+    addOptions(currentDate);
+
+    // 辅助函数：添加选项
+    function addOptions(date) {
+        for (var i = 0; i < 2; i++) {  // 添加当天和第二天的选项
+            var day = date.getDate();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+
+            // 添加五个时间点的选项
+            addOption(date, "早上8点");
+            addOption(date, "早上8点15分");
+            addOption(date, "早上8点30分");
+            addOption(date, "早上8点45分");
+            addOption(date, "早上9点");
+            addOption(date, "早上9点15分");
+            addOption(date, "早上9点30分");
+            addOption(date, "早上9点45分");
+            addOption(date, "早上10点");
+            addOption(date, "早上10点15分");
+            addOption(date, "早上10点30分");
+            addOption(date, "早上10点45分");
+            addOption(date, "早上11点");
+            addOption(date, "早上11点15分");
+            addOption(date, "下午2点");
+            addOption(date, "下午2点30分");
+            addOption(date, "下午3点");
+            addOption(date, "下午3点30分");
+            addOption(date, "下午4点");
+            addOption(date, "下午4点30分");
+            addOption(date, "晚上8点");
+            addOption(date, "晚上8点30分");
+
+            // 切换到下一天
+            date.setDate(day + 1);
+        }
+    }
+
+    // 辅助函数：添加单个选项
+    function addOption(date, timeDescription) {
+        var optionValue = formatDate(date) + " " + timeDescription;
+        appointmentTimeSelect.options.add(new Option(optionValue, optionValue));
+    }
+
+    // 辅助函数：将日期格式化为"YYYY年MM月DD日"的字符串
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return year + "年" + month + "月" + day + "日";
+    }
+</script>
+</div>
+        </form>
+
+            </div>
+
+
+</div>
+
+
+</div>
+        </div>
+
+        <div>
+            <!--
+                xmlns:SVG命名看见URI
+                viewBox:定义当前视口（viewbox）中绘制区域的位置大小
+                preserveeAspectRatio：定义了绘制区域在视口中的对齐方式
+                shape-rendering：定义了形状的渲染方式（如何呈现头像的锯齿效果）
+             -->
+
+            <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+
+                <defs>
+                    <path id="gentle-wave"
+                        d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+                </defs>
+                <!-- 定义一个g元素，用于讲多个图形组合在一期，并应用一些样式
+                    在g元素中使用use元素多次引用了赚钱定义的名为gentle-wave的路径元素
+                    通过设置不同的x，y坐标和填充颜色，实现了波浪形状和渐变效果 -->
+                <g class="parallax">
+                    <use xlink:href="#gentle-wave" x="48" y="20" fill="rgba(255,255,255,0.7)" />
+    <use xlink:href="#gentle-wave" x="48" y="23" fill="rgba(255,255,255,0.5)" />
+    <use xlink:href="#gentle-wave" x="48" y="25" fill="rgba(255,255,255,0.3)" />
+    <use xlink:href="#gentle-wave" x="48" y="27" fill="#fff" />
+                </g>
+
+            </svg>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

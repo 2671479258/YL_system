@@ -1,0 +1,1772 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>社区医疗服务系统-药品详情页</title>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <div id="app" v-cloak>
+    <div class="header_con">
+        <div class="header">
+            <div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+            <div class="fr">
+
+
+                <div class="user_link fl">
+                    <span>|</span>
+                    <a href="/user_center_info.html">用户中心</a>
+                    <span>|</span>
+                    <a href="/cart.html">我的购物车</a>
+                    <span>|</span>
+                    <a href="/user_center_order.html">我的订单</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search_bar clearfix">
+            <a href="/index.html" class="logo fl"><img src="./logo.png"></a>
+            <div class="search_wrap fl">
+                <form method="get" action="/search.html" class="search_con">
+                    <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                    <input type="submit" class="input_btn fr" name="" value="搜索">
+                </form>
+                <ul class="search_suggest fl">
+                    <li><a href="http://127.0.0.1:8080/goods/14.html">999感冒灵</a></li>
+				<li><a href="http://127.0.0.1:8080/goods/12.html">小儿感冒颗粒</a></li>
+				<li><a href="http://127.0.0.1:8080/goods/20.html">布洛芬</a></li>
+				<li><a href="#">N95口罩</a></li>
+                </ul>
+            </div>
+
+            <div class="guest_cart fr">
+            <a href="#" class="cart_name fl">我的购物车</a>
+    <div class="goods_count fl" id="show_count">[[cart_total_count]]</div>
+
+
+    <ul class="cart_goods_show">
+        <li v-for="sku in carts">
+            <img :src="sku.default_image_url" alt="商品图片">
+            <h4>[[ sku.name ]]</h4>
+            <div>[[ sku.count ]]</div>
+        </li>
+    </ul>
+        </div>
+
+        </div>
+
+        <div class="navbar_con">
+                <div class="navbar">
+                    <div class="sub_menu_con fl">
+                        <h1 class="fl">商品分类</h1>
+                        <ul class="sub_menu">
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">居家药</a>
+                                    
+                                    <a href="">感冒</a>
+                                    
+                                    <a href="">发烧</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">感冒药 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=115">感冒颗粒</a>
+                                            
+                                            <a href="/list.html?cat=116">口服液</a>
+                                            
+                                            <a href="/list.html?cat=117">胶囊</a>
+                                            
+                                            <a href="/list.html?cat=118">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">退烧药 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=119">退烧胶囊</a>
+                                            
+                                            <a href="/list.html?cat=120">退烧颗粒</a>
+                                            
+                                            <a href="/list.html?cat=121">退烧液</a>
+                                            
+                                            <a href="/list.html?cat=122">退烧4</a>
+                                            
+                                            <a href="/list.html?cat=123">退烧5</a>
+                                            
+                                            <a href="/list.html?cat=124">退烧6</a>
+                                            
+                                            <a href="/list.html?cat=125">退烧7</a>
+                                            
+                                            <a href="/list.html?cat=126">退烧类8</a>
+                                            
+                                            <a href="/list.html?cat=127">退烧药9</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">止咳药 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=128">止咳糖浆</a>
+                                            
+                                            <a href="/list.html?cat=129">止咳片</a>
+                                            
+                                            <a href="/list.html?cat=130">止咳胶囊</a>
+                                            
+                                            <a href="/list.html?cat=131">止咳4</a>
+                                            
+                                            <a href="/list.html?cat=132">止咳5</a>
+                                            
+                                            <a href="/list.html?cat=133">止咳6</a>
+                                            
+                                            <a href="/list.html?cat=134">止咳7</a>
+                                            
+                                            <a href="/list.html?cat=135">止咳8</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">口罩 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=136">普通口罩</a>
+                                            
+                                            <a href="/list.html?cat=137">N95口罩</a>
+                                            
+                                            <a href="/list.html?cat=138">口罩3</a>
+                                            
+                                            <a href="/list.html?cat=139">口罩4</a>
+                                            
+                                            <a href="/list.html?cat=140">口罩5</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">创可贴 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=141">品牌A</a>
+                                            
+                                            <a href="/list.html?cat=142">品牌B</a>
+                                            
+                                            <a href="/list.html?cat=143">品牌C</a>
+                                            
+                                            <a href="/list.html?cat=144">品牌D</a>
+                                            
+                                            <a href="/list.html?cat=145">品牌E</a>
+                                            
+                                            <a href="/list.html?cat=146">品牌F</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">维生素片 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=147">A</a>
+                                            
+                                            <a href="/list.html?cat=148">B</a>
+                                            
+                                            <a href="/list.html?cat=149">C</a>
+                                            
+                                            <a href="/list.html?cat=150">D</a>
+                                            
+                                            <a href="/list.html?cat=151">E</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">养生饮品 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=152">金银花露</a>
+                                            
+                                            <a href="/list.html?cat=153">酸梅汤</a>
+                                            
+                                            <a href="/list.html?cat=154">胡萝卜汁</a>
+                                            
+                                            <a href="/list.html?cat=155">饮品类4</a>
+                                            
+                                            <a href="/list.html?cat=156">饮品类5</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">肠胃</a>
+                                    
+                                    <a href="">儿童</a>
+                                    
+                                    <a href="">调养</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">肠胃消化 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=157">肠胃片</a>
+                                            
+                                            <a href="/list.html?cat=158">口服液</a>
+                                            
+                                            <a href="/list.html?cat=159">肠胃胶囊</a>
+                                            
+                                            <a href="/list.html?cat=160">肠胃4</a>
+                                            
+                                            <a href="/list.html?cat=161">肠胃5</a>
+                                            
+                                            <a href="/list.html?cat=162">肠胃6</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">儿童感冒 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=163">999</a>
+                                            
+                                            <a href="/list.html?cat=164">舒达</a>
+                                            
+                                            <a href="/list.html?cat=165">健安达</a>
+                                            
+                                            <a href="/list.html?cat=166">品牌4</a>
+                                            
+                                            <a href="/list.html?cat=167">品牌5</a>
+                                            
+                                            <a href="/list.html?cat=168">品牌6</a>
+                                            
+                                            <a href="/list.html?cat=169">品牌7</a>
+                                            
+                                            <a href="/list.html?cat=170">品牌8</a>
+                                            
+                                            <a href="/list.html?cat=171">品牌9</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">儿童发烧 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=172">药类</a>
+                                            
+                                            <a href="/list.html?cat=173">药类</a>
+                                            
+                                            <a href="/list.html?cat=174">药类</a>
+                                            
+                                            <a href="/list.html?cat=175">药类</a>
+                                            
+                                            <a href="/list.html?cat=176">药类</a>
+                                            
+                                            <a href="/list.html?cat=177">药类</a>
+                                            
+                                            <a href="/list.html?cat=178">药类</a>
+                                            
+                                            <a href="/list.html?cat=179">药类</a>
+                                            
+                                            <a href="/list.html?cat=180">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">跌打扭伤 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=181">药类</a>
+                                            
+                                            <a href="/list.html?cat=182">药类</a>
+                                            
+                                            <a href="/list.html?cat=183">药类</a>
+                                            
+                                            <a href="/list.html?cat=184">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=185">药类</a>
+                                            
+                                            <a href="/list.html?cat=186">药类</a>
+                                            
+                                            <a href="/list.html?cat=187">药类</a>
+                                            
+                                            <a href="/list.html?cat=188">药类</a>
+                                            
+                                            <a href="/list.html?cat=189">药类</a>
+                                            
+                                            <a href="/list.html?cat=190">药类</a>
+                                            
+                                            <a href="/list.html?cat=191">药类</a>
+                                            
+                                            <a href="/list.html?cat=192">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=197">药类</a>
+                                            
+                                            <a href="/list.html?cat=198">药类</a>
+                                            
+                                            <a href="/list.html?cat=199">药类</a>
+                                            
+                                            <a href="/list.html?cat=200">药类</a>
+                                            
+                                            <a href="/list.html?cat=201">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=202">药类</a>
+                                            
+                                            <a href="/list.html?cat=203">药类</a>
+                                            
+                                            <a href="/list.html?cat=204">药类</a>
+                                            
+                                            <a href="/list.html?cat=205">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=206">药类</a>
+                                            
+                                            <a href="/list.html?cat=207">药类</a>
+                                            
+                                            <a href="/list.html?cat=208">药类</a>
+                                            
+                                            <a href="/list.html?cat=209">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=215">药类</a>
+                                            
+                                            <a href="/list.html?cat=216">药类</a>
+                                            
+                                            <a href="/list.html?cat=217">药类</a>
+                                            
+                                            <a href="/list.html?cat=218">药类</a>
+                                            
+                                            <a href="/list.html?cat=219">药类</a>
+                                            
+                                            <a href="/list.html?cat=220">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">营养</a>
+                                    
+                                    <a href="">保健</a>
+                                    
+                                    <a href="">皮肤</a>
+                                    
+                                    <a href="">口腔</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">营养品 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=221">营养品</a>
+                                            
+                                            <a href="/list.html?cat=222">保健品</a>
+                                            
+                                            <a href="/list.html?cat=223">药类</a>
+                                            
+                                            <a href="/list.html?cat=224">药类</a>
+                                            
+                                            <a href="/list.html?cat=225">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=226">药类</a>
+                                            
+                                            <a href="/list.html?cat=227">药类</a>
+                                            
+                                            <a href="/list.html?cat=228">药类</a>
+                                            
+                                            <a href="/list.html?cat=229">药类</a>
+                                            
+                                            <a href="/list.html?cat=230">药类</a>
+                                            
+                                            <a href="/list.html?cat=231">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">皮肤 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=232">药类</a>
+                                            
+                                            <a href="/list.html?cat=233">药类</a>
+                                            
+                                            <a href="/list.html?cat=234">药类</a>
+                                            
+                                            <a href="/list.html?cat=235">药类</a>
+                                            
+                                            <a href="/list.html?cat=236">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=237">药类</a>
+                                            
+                                            <a href="/list.html?cat=238">药类</a>
+                                            
+                                            <a href="/list.html?cat=239">药类</a>
+                                            
+                                            <a href="/list.html?cat=240">药类</a>
+                                            
+                                            <a href="/list.html?cat=241">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=242">药类</a>
+                                            
+                                            <a href="/list.html?cat=243">药类</a>
+                                            
+                                            <a href="/list.html?cat=244">药类</a>
+                                            
+                                            <a href="/list.html?cat=245">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=246">药类</a>
+                                            
+                                            <a href="/list.html?cat=247">药类</a>
+                                            
+                                            <a href="/list.html?cat=248">药类</a>
+                                            
+                                            <a href="/list.html?cat=249">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=250">药类</a>
+                                            
+                                            <a href="/list.html?cat=251">药类</a>
+                                            
+                                            <a href="/list.html?cat=252">药类</a>
+                                            
+                                            <a href="/list.html?cat=253">药类</a>
+                                            
+                                            <a href="/list.html?cat=254">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=255">药类</a>
+                                            
+                                            <a href="/list.html?cat=256">药类</a>
+                                            
+                                            <a href="/list.html?cat=257">药类</a>
+                                            
+                                            <a href="/list.html?cat=258">药类</a>
+                                            
+                                            <a href="/list.html?cat=259">药类</a>
+                                            
+                                            <a href="/list.html?cat=260">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=261">药类</a>
+                                            
+                                            <a href="/list.html?cat=262">药类</a>
+                                            
+                                            <a href="/list.html?cat=263">药类</a>
+                                            
+                                            <a href="/list.html?cat=264">药类</a>
+                                            
+                                            <a href="/list.html?cat=265">药类</a>
+                                            
+                                            <a href="/list.html?cat=266">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">镇痛</a>
+                                    
+                                    <a href="">补钙</a>
+                                    
+                                    <a href="">抗炎</a>
+                                    
+                                    <a href="">过敏</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=267">药类</a>
+                                            
+                                            <a href="/list.html?cat=268">药类</a>
+                                            
+                                            <a href="/list.html?cat=269">药类</a>
+                                            
+                                            <a href="/list.html?cat=270">药类</a>
+                                            
+                                            <a href="/list.html?cat=271">药类</a>
+                                            
+                                            <a href="/list.html?cat=272">药类</a>
+                                            
+                                            <a href="/list.html?cat=273">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=274">药类</a>
+                                            
+                                            <a href="/list.html?cat=275">药类</a>
+                                            
+                                            <a href="/list.html?cat=276">药类</a>
+                                            
+                                            <a href="/list.html?cat=277">药类</a>
+                                            
+                                            <a href="/list.html?cat=278">药类</a>
+                                            
+                                            <a href="/list.html?cat=279">药类</a>
+                                            
+                                            <a href="/list.html?cat=280">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=281">药类</a>
+                                            
+                                            <a href="/list.html?cat=282">药类</a>
+                                            
+                                            <a href="/list.html?cat=283">药类</a>
+                                            
+                                            <a href="/list.html?cat=284">药类</a>
+                                            
+                                            <a href="/list.html?cat=285">药类</a>
+                                            
+                                            <a href="/list.html?cat=286">药类</a>
+                                            
+                                            <a href="/list.html?cat=287">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=288">药类</a>
+                                            
+                                            <a href="/list.html?cat=289">药类</a>
+                                            
+                                            <a href="/list.html?cat=290">药类</a>
+                                            
+                                            <a href="/list.html?cat=291">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=292">药类</a>
+                                            
+                                            <a href="/list.html?cat=293">药类</a>
+                                            
+                                            <a href="/list.html?cat=294">药类</a>
+                                            
+                                            <a href="/list.html?cat=295">药类</a>
+                                            
+                                            <a href="/list.html?cat=296">药类</a>
+                                            
+                                            <a href="/list.html?cat=297">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=298">药类</a>
+                                            
+                                            <a href="/list.html?cat=299">药类</a>
+                                            
+                                            <a href="/list.html?cat=300">药类</a>
+                                            
+                                            <a href="/list.html?cat=301">药类</a>
+                                            
+                                            <a href="/list.html?cat=302">药类</a>
+                                            
+                                            <a href="/list.html?cat=303">药类</a>
+                                            
+                                            <a href="/list.html?cat=304">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">风湿</a>
+                                    
+                                    <a href="">镇静</a>
+                                    
+                                    <a href="">感染</a>
+                                    
+                                    <a href="">抑郁</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=305">药类</a>
+                                            
+                                            <a href="/list.html?cat=306">药类</a>
+                                            
+                                            <a href="/list.html?cat=307">药类</a>
+                                            
+                                            <a href="/list.html?cat=308">药类</a>
+                                            
+                                            <a href="/list.html?cat=309">药类</a>
+                                            
+                                            <a href="/list.html?cat=310">药类</a>
+                                            
+                                            <a href="/list.html?cat=311">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=312">药类</a>
+                                            
+                                            <a href="/list.html?cat=313">药类</a>
+                                            
+                                            <a href="/list.html?cat=314">药类</a>
+                                            
+                                            <a href="/list.html?cat=315">药类</a>
+                                            
+                                            <a href="/list.html?cat=316">药类</a>
+                                            
+                                            <a href="/list.html?cat=317">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=318">药类</a>
+                                            
+                                            <a href="/list.html?cat=319">药类</a>
+                                            
+                                            <a href="/list.html?cat=320">药类</a>
+                                            
+                                            <a href="/list.html?cat=321">药类</a>
+                                            
+                                            <a href="/list.html?cat=322">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=323">药类</a>
+                                            
+                                            <a href="/list.html?cat=324">药类</a>
+                                            
+                                            <a href="/list.html?cat=325">药类</a>
+                                            
+                                            <a href="/list.html?cat=326">药类</a>
+                                            
+                                            <a href="/list.html?cat=327">药类</a>
+                                            
+                                            <a href="/list.html?cat=328">药类</a>
+                                            
+                                            <a href="/list.html?cat=329">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">钟表 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=330">药类</a>
+                                            
+                                            <a href="/list.html?cat=331">药类</a>
+                                            
+                                            <a href="/list.html?cat=332">药类</a>
+                                            
+                                            <a href="/list.html?cat=333">药类</a>
+                                            
+                                            <a href="/list.html?cat=334">药类</a>
+                                            
+                                            <a href="/list.html?cat=335">药类</a>
+                                            
+                                            <a href="/list.html?cat=336">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=337">药类</a>
+                                            
+                                            <a href="/list.html?cat=338">药类</a>
+                                            
+                                            <a href="/list.html?cat=339">药类</a>
+                                            
+                                            <a href="/list.html?cat=340">药类</a>
+                                            
+                                            <a href="/list.html?cat=341">药类</a>
+                                            
+                                            <a href="/list.html?cat=342">药类</a>
+                                            
+                                            <a href="/list.html?cat=343">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">焦虑</a>
+                                    
+                                    <a href="">血糖</a>
+                                    
+                                    <a href="">睡眠</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=344">药类</a>
+                                            
+                                            <a href="/list.html?cat=345">药类</a>
+                                            
+                                            <a href="/list.html?cat=346">药类</a>
+                                            
+                                            <a href="/list.html?cat=347">药类</a>
+                                            
+                                            <a href="/list.html?cat=348">药类</a>
+                                            
+                                            <a href="/list.html?cat=352">药类</a>
+                                            
+                                            <a href="/list.html?cat=353">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=349">药类</a>
+                                            
+                                            <a href="/list.html?cat=350">药类</a>
+                                            
+                                            <a href="/list.html?cat=351">药类</a>
+                                            
+                                            <a href="/list.html?cat=354">药类</a>
+                                            
+                                            <a href="/list.html?cat=355">药类</a>
+                                            
+                                            <a href="/list.html?cat=356">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=357">药类</a>
+                                            
+                                            <a href="/list.html?cat=358">药类</a>
+                                            
+                                            <a href="/list.html?cat=359">药类</a>
+                                            
+                                            <a href="/list.html?cat=360">药类</a>
+                                            
+                                            <a href="/list.html?cat=361">药类</a>
+                                            
+                                            <a href="/list.html?cat=362">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=363">药类</a>
+                                            
+                                            <a href="/list.html?cat=364">药类</a>
+                                            
+                                            <a href="/list.html?cat=365">药类</a>
+                                            
+                                            <a href="/list.html?cat=366">药类</a>
+                                            
+                                            <a href="/list.html?cat=367">药类</a>
+                                            
+                                            <a href="/list.html?cat=368">药类</a>
+                                            
+                                            <a href="/list.html?cat=369">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=370">药类</a>
+                                            
+                                            <a href="/list.html?cat=371">药类</a>
+                                            
+                                            <a href="/list.html?cat=372">药类</a>
+                                            
+                                            <a href="/list.html?cat=373">药类</a>
+                                            
+                                            <a href="/list.html?cat=374">药类</a>
+                                            
+                                            <a href="/list.html?cat=375">药类</a>
+                                            
+                                            <a href="/list.html?cat=377">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=376">药类</a>
+                                            
+                                            <a href="/list.html?cat=378">药类</a>
+                                            
+                                            <a href="/list.html?cat=379">药类</a>
+                                            
+                                            <a href="/list.html?cat=380">药类</a>
+                                            
+                                            <a href="/list.html?cat=381">药类</a>
+                                            
+                                            <a href="/list.html?cat=382">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=383">药类</a>
+                                            
+                                            <a href="/list.html?cat=384">药类</a>
+                                            
+                                            <a href="/list.html?cat=385">药类</a>
+                                            
+                                            <a href="/list.html?cat=386">药类</a>
+                                            
+                                            <a href="/list.html?cat=387">药类</a>
+                                            
+                                            <a href="/list.html?cat=388">药类</a>
+                                            
+                                            <a href="/list.html?cat=389">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=390">药类</a>
+                                            
+                                            <a href="/list.html?cat=391">药类</a>
+                                            
+                                            <a href="/list.html?cat=392">药类</a>
+                                            
+                                            <a href="/list.html?cat=393">药类</a>
+                                            
+                                            <a href="/list.html?cat=394">药类</a>
+                                            
+                                            <a href="/list.html?cat=395">药类</a>
+                                            
+                                            <a href="/list.html?cat=396">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">调节</a>
+                                    
+                                    <a href="">解热</a>
+                                    
+                                    <a href="">润喉</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=397">药类</a>
+                                            
+                                            <a href="/list.html?cat=398">药类</a>
+                                            
+                                            <a href="/list.html?cat=399">药类</a>
+                                            
+                                            <a href="/list.html?cat=400">药类</a>
+                                            
+                                            <a href="/list.html?cat=401">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=402">药类</a>
+                                            
+                                            <a href="/list.html?cat=403">药类</a>
+                                            
+                                            <a href="/list.html?cat=404">药类</a>
+                                            
+                                            <a href="/list.html?cat=405">药类</a>
+                                            
+                                            <a href="/list.html?cat=406">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=407">药类</a>
+                                            
+                                            <a href="/list.html?cat=408">药类</a>
+                                            
+                                            <a href="/list.html?cat=409">药类</a>
+                                            
+                                            <a href="/list.html?cat=410">药类</a>
+                                            
+                                            <a href="/list.html?cat=411">药类</a>
+                                            
+                                            <a href="/list.html?cat=412">药类</a>
+                                            
+                                            <a href="/list.html?cat=413">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=414">药类</a>
+                                            
+                                            <a href="/list.html?cat=415">药类</a>
+                                            
+                                            <a href="/list.html?cat=416">药类</a>
+                                            
+                                            <a href="/list.html?cat=417">药类</a>
+                                            
+                                            <a href="/list.html?cat=418">药类</a>
+                                            
+                                            <a href="/list.html?cat=419">药类</a>
+                                            
+                                            <a href="/list.html?cat=420">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=421">药类</a>
+                                            
+                                            <a href="/list.html?cat=422">药类</a>
+                                            
+                                            <a href="/list.html?cat=423">药类</a>
+                                            
+                                            <a href="/list.html?cat=424">药类</a>
+                                            
+                                            <a href="/list.html?cat=425">药类</a>
+                                            
+                                            <a href="/list.html?cat=426">药类</a>
+                                            
+                                            <a href="/list.html?cat=427">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=428">药类</a>
+                                            
+                                            <a href="/list.html?cat=429">药类</a>
+                                            
+                                            <a href="/list.html?cat=430">药类</a>
+                                            
+                                            <a href="/list.html?cat=431">药类</a>
+                                            
+                                            <a href="/list.html?cat=432">药类</a>
+                                            
+                                            <a href="/list.html?cat=433">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">补虚</a>
+                                    
+                                    <a href="">祛痰</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=434">1段</a>
+                                            
+                                            <a href="/list.html?cat=435">2段</a>
+                                            
+                                            <a href="/list.html?cat=436">3段</a>
+                                            
+                                            <a href="/list.html?cat=437">4段</a>
+                                            
+                                            <a href="/list.html?cat=438">药类</a>
+                                            
+                                            <a href="/list.html?cat=439">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=440">药类</a>
+                                            
+                                            <a href="/list.html?cat=441">药类</a>
+                                            
+                                            <a href="/list.html?cat=442">药类</a>
+                                            
+                                            <a href="/list.html?cat=443">药类</a>
+                                            
+                                            <a href="/list.html?cat=444">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=445">药类</a>
+                                            
+                                            <a href="/list.html?cat=446">药类</a>
+                                            
+                                            <a href="/list.html?cat=447">药类</a>
+                                            
+                                            <a href="/list.html?cat=448">药类</a>
+                                            
+                                            <a href="/list.html?cat=449">药类</a>
+                                            
+                                            <a href="/list.html?cat=450">药类</a>
+                                            
+                                            <a href="/list.html?cat=451">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=452">药类</a>
+                                            
+                                            <a href="/list.html?cat=453">药类</a>
+                                            
+                                            <a href="/list.html?cat=454">药类</a>
+                                            
+                                            <a href="/list.html?cat=455">药类</a>
+                                            
+                                            <a href="/list.html?cat=456">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=457">药类</a>
+                                            
+                                            <a href="/list.html?cat=458">药类</a>
+                                            
+                                            <a href="/list.html?cat=459">药类</a>
+                                            
+                                            <a href="/list.html?cat=460">药类</a>
+                                            
+                                            <a href="/list.html?cat=461">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">清毒</a>
+                                    
+                                    <a href="">清热</a>
+                                    
+                                    <a href="">止痒</a>
+                                    
+                                    <a href="">抑菌</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=462">药类</a>
+                                            
+                                            <a href="/list.html?cat=463">药类</a>
+                                            
+                                            <a href="/list.html?cat=464">药类</a>
+                                            
+                                            <a href="/list.html?cat=465">药类</a>
+                                            
+                                            <a href="/list.html?cat=466">药类</a>
+                                            
+                                            <a href="/list.html?cat=467">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=468">药类</a>
+                                            
+                                            <a href="/list.html?cat=469">药类</a>
+                                            
+                                            <a href="/list.html?cat=470">药类</a>
+                                            
+                                            <a href="/list.html?cat=471">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=472">药类</a>
+                                            
+                                            <a href="/list.html?cat=473">药类</a>
+                                            
+                                            <a href="/list.html?cat=474">药类</a>
+                                            
+                                            <a href="/list.html?cat=475">药类</a>
+                                            
+                                            <a href="/list.html?cat=476">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=477">药类</a>
+                                            
+                                            <a href="/list.html?cat=478">药类</a>
+                                            
+                                            <a href="/list.html?cat=479">药类</a>
+                                            
+                                            <a href="/list.html?cat=480">药类</a>
+                                            
+                                            <a href="/list.html?cat=481">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=482">药类</a>
+                                            
+                                            <a href="/list.html?cat=483">药类</a>
+                                            
+                                            <a href="/list.html?cat=484">药类</a>
+                                            
+                                            <a href="/list.html?cat=485">药类</a>
+                                            
+                                            <a href="/list.html?cat=486">药类</a>
+                                            
+                                            <a href="/list.html?cat=487">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=488">药类</a>
+                                            
+                                            <a href="/list.html?cat=489">药类</a>
+                                            
+                                            <a href="/list.html?cat=490">药类</a>
+                                            
+                                            <a href="/list.html?cat=491">药类</a>
+                                            
+                                            <a href="/list.html?cat=492">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=493">药类</a>
+                                            
+                                            <a href="/list.html?cat=494">药类</a>
+                                            
+                                            <a href="/list.html?cat=495">药类</a>
+                                            
+                                            <a href="/list.html?cat=496">药类</a>
+                                            
+                                            <a href="/list.html?cat=497">东北</a>
+                                            
+                                            <a href="/list.html?cat=498">西北</a>
+                                            
+                                            <a href="/list.html?cat=499">西南</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">消肿</a>
+                                    
+                                    <a href="">清瘀</a>
+                                    
+                                    <a href="">强心</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=500">药类</a>
+                                            
+                                            <a href="/list.html?cat=501">药类</a>
+                                            
+                                            <a href="/list.html?cat=502">药类</a>
+                                            
+                                            <a href="/list.html?cat=503">药类</a>
+                                            
+                                            <a href="/list.html?cat=504">药类</a>
+                                            
+                                            <a href="/list.html?cat=505">药类</a>
+                                            
+                                            <a href="/list.html?cat=506">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=507">药类</a>
+                                            
+                                            <a href="/list.html?cat=508">药类</a>
+                                            
+                                            <a href="/list.html?cat=509">药类</a>
+                                            
+                                            <a href="/list.html?cat=510">药类</a>
+                                            
+                                            <a href="/list.html?cat=511">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=512">药类</a>
+                                            
+                                            <a href="/list.html?cat=513">药类</a>
+                                            
+                                            <a href="/list.html?cat=514">药类</a>
+                                            
+                                            <a href="/list.html?cat=515">药类</a>
+                                            
+                                            <a href="/list.html?cat=516">药类</a>
+                                            
+                                            <a href="/list.html?cat=517">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=526">药类</a>
+                                            
+                                            <a href="/list.html?cat=527">药类</a>
+                                            
+                                            <a href="/list.html?cat=528">药类</a>
+                                            
+                                            <a href="/list.html?cat=529">药类</a>
+                                            
+                                            <a href="/list.html?cat=530">药类</a>
+                                            
+                                            <a href="/list.html?cat=531">药类</a>
+                                            
+                                            <a href="/list.html?cat=532">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=518">药类</a>
+                                            
+                                            <a href="/list.html?cat=519">药类</a>
+                                            
+                                            <a href="/list.html?cat=520">药类</a>
+                                            
+                                            <a href="/list.html?cat=521">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=522">药类</a>
+                                            
+                                            <a href="/list.html?cat=523">药类</a>
+                                            
+                                            <a href="/list.html?cat=524">药类</a>
+                                            
+                                            <a href="/list.html?cat=525">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                            <li>
+                                <div class="level1">
+                                    
+                                    <a href="">抗酸</a>
+                                    
+                                    <a href="">补脑</a>
+                                    
+                                    <a href="">补血</a>
+                                    
+                                    <a href="">补阳</a>
+                                    
+                                </div>
+                                <div class="level2">
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=533">药类</a>
+                                            
+                                            <a href="/list.html?cat=534">药类</a>
+                                            
+                                            <a href="/list.html?cat=535">药类</a>
+                                            
+                                            <a href="/list.html?cat=536">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=537">药类</a>
+                                            
+                                            <a href="/list.html?cat=538">药类</a>
+                                            
+                                            <a href="/list.html?cat=539">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=540">药类</a>
+                                            
+                                            <a href="/list.html?cat=541">药类</a>
+                                            
+                                            <a href="/list.html?cat=542">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=543">药类</a>
+                                            
+                                            <a href="/list.html?cat=544">药类</a>
+                                            
+                                            <a href="/list.html?cat=545">药类</a>
+                                            
+                                            <a href="/list.html?cat=546">药类</a>
+                                            
+                                            <a href="/list.html?cat=547">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=548">药类</a>
+                                            
+                                            <a href="/list.html?cat=549">药类</a>
+                                            
+                                            <a href="/list.html?cat=550">药类</a>
+                                            
+                                            <a href="/list.html?cat=551">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="list_group">
+                                        <div class="group_name fl">药类 &gt;</div>
+                                        <div class="group_detail fl">
+                                            
+                                            <a href="/list.html?cat=552">药类</a>
+                                            
+                                            <a href="/list.html?cat=553">药类</a>
+                                            
+                                            <a href="/list.html?cat=554">药类</a>
+                                            
+                                            <a href="/list.html?cat=555">药类</a>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                            
+                        </ul>
+                    </div>
+
+                    <ul class="navlist fl">
+				<li><a href="http://127.0.0.1:8080/index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+				            <li><a href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+
+				<li><a style="font-weight: bold;" href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="zc_menu.html">健康自测</a></li>
+			</ul>
+                </div>
+            </div>
+
+    <div class="breadcrumb">
+        <a href="#">感冒</a>
+        <span>></span>
+        <span>止咳药</span>
+        <span>></span>
+        <a href="#">止咳糖浆</a>
+    </div>
+
+    <div class="goods_detail_con clearfix">
+        <div class="goods_detail_pic fl"><img src="/media/medicine_images/12.png"></div>
+        <div class="goods_detail_list fr">
+            <h3>小儿止咳糖浆</h3>
+            <p>止咳，祛痰，平喘</p>
+            <div class="prize_bar">
+                <span class="show_pirze">¥<em>9.90</em></span><span> 市场价￥11.00</span>
+                <a href="javascript:;" class="goods_judge">2人评价</a>
+            </div>
+            <div class="goods_num clearfix">
+                <div class="num_name fl">数 量：</div>
+                <div class="num_add fl">
+                    <input v-model="sku_count" type="text" class="num_show fl">
+                    <a @click="sku_count++" class="add fr">+</a>
+                    <a @click="on_minus()" class="minus fr">-</a>
+                </div>
+            </div>
+            
+            <div class="total">总价：<em>[[sku_amount]]元</em></div>
+            <div class="operate_btn">
+                <a @click="add_cart" class="add_cart" id="add_cart">加入购物车</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_wrap clearfix">
+        <div class="l_wrap fl clearfix">
+            <div class="new_goods">
+                <h3>热销排行</h3>
+                <ul>
+                    <li v-for="sku in hot_skus">
+                        <a :href="sku.url"><img :src="sku.default_image_url"></a>
+                        <h4><a :href="sku.url">[[sku.name]]</a></h4>
+                        <div class="prize">￥[[sku.price]]</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="r_wrap fr clearfix">
+            <ul class="detail_tab clearfix">
+                <li @click="on_tab_content('detail')" :class="tab_content.detail?'active':''">商品详情</li>
+                <li @click="on_tab_content('pack')" :class="tab_content.pack?'active':''">规格与包装</li>
+                <li @click="on_tab_content('comment')" :class="tab_content.comment?'active':''">商品评价([[comments.length]])</li>
+                <li @click="on_tab_content('service')" :class="tab_content.service?'active':''">售后服务</li>
+            </ul>
+            <div @click="on_tab_content('detail')" class="tab_content" :class="tab_content.detail?'current':''">
+                <dl>
+                    <dt>商品详情：</dt>
+                    <dd>止咳，祛痰，平喘</dd>
+                </dl>
+            </div>
+            <div @click="on_tab_content('pack')" class="tab_content" :class="tab_content.pack?'current':''">
+                <dl>
+                    <dt>规格与包装：</dt>
+                    <dd>内含说明书</dd>
+                </dl>
+            </div>
+            <div @click="on_tab_content('comment')" class="tab_content" :class="tab_content.comment?'current':''">
+                <ul class="judge_list_con">
+                    <li class="judge_list fl" v-for="comment in comments">
+                        <div class="user_info fl">
+                            <b>[[comment.username]]</b>
+                        </div>
+                        <div class="judge_info fl">
+                            <div :class="comment.score_class"></div>
+                            <div class="judge_detail">[[comment.comment]]</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div @click="on_tab_content('service')" class="tab_content" :class="tab_content.service?'current':''">
+                <dl>
+                    <dt>售后服务：</dt>
+                    <dd>请您放心购买！</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 社区医疗服务系统 All Rights Reserved</p>
+        <p>电话：010-****888    ICP备*******8号</p>
+    </div>
+    </div>
+    <script type="text/javascript">
+        var price = 9.90;
+        var cat = 128;
+    </script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/detail.js"></script>
+</body>
+</html>

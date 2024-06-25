@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>社区医疗-健康分析</title>
+	<link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8080/css/main.css">
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/host.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-1.12.4.min.js"></script>
+
+  <style>
+
+
+	  a {
+    text-decoration: none; /* 去掉下划线 */
+    color: inherit; /* 继承父元素的颜色，如果有的话 */
+}
+
+a:hover {
+    color: blue; /* 悬停时链接颜色变为灰色 */
+}
+
+
+a img {
+    transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+
+a:hover img {
+    transform: scale(1.05); /* 悬停时图片放大 1.1 倍 */
+}
+
+    .container {
+        width: 300px; /* 增加容器宽度 */
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 20px; /* 增加内边距 */
+        font-size: 16px; /* 设置字体大小 */
+    }
+
+    .data-item {
+        margin-bottom: 10px; /* 增加项之间的间距 */
+    }
+</style>
+
+</head>
+<body>
+	<div id="app" v-cloak>
+	<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+			<div class="fr">
+				<div v-if="username" class="login_btn fl">
+					欢迎您：<em>{{username }}</em>
+					<a @click="logoutfunc" class="quit">退出</a>
+				</div>
+				<div v-else class="login_btn fl">
+					<a href="/login.html">登录</a>
+					<span>|</span>
+					<a href="register.html">注册</a>
+				</div>
+				<div class="user_link fl">
+					<span>|</span>
+					<a href="/user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a href="/cart.html">我的购物车</a>
+					<span>|</span>
+					<a href="/user_center_order.html">我的订单</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+		<div class="search_bar clearfix">
+		<a href="yl_index.html" class="logo fl"><img src="./images/logo.png"></a>
+		<div class="search_wrap fl">
+<!--			<form method="get" action="/search.html" class="search_con">-->
+<!--                <input type="text" class="input_text fl" name="q" placeholder="搜索关键字">-->
+<!--                <input type="submit" class="input_btn fr" name="" value="搜索">-->
+<!--            </form>-->
+
+		</div>
+
+	</div>
+
+
+
+<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">主菜单</h1>
+						<ul class="navlist fl">
+				<li><a href="http://127.0.0.1:8080/index.html">首页</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/yy_index.html">问诊预约</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/tj_index.html">体检预约</a></li>
+				<li class="interval">|</li>
+
+
+							            <li><a style="font-weight: bold;" href="http://127.0.0.1:8080/tijian_fenxi.html">健康分析</a></li>
+				<li class="interval">|</li>
+
+				<li><a href="http://127.0.0.1:8080/index.html">药品商城</a></li>
+				<li class="interval">|</li>
+
+
+
+
+				<li><a href="http://127.0.0.1:8080/article.html">健康专栏</a></li>
+                <li class="interval">|</li>
+
+
+				<li><a href="http://127.0.0.1:8080/online_ask.html">在线问诊</a></li>
+                <li class="interval">|</li>
+
+				<li><a href="zc_menu.html">健康问卷</a></li>
+			</ul>
+		</div>
+</div>
+<div>
+
+<div v-if="averageHeight !== 404" >
+    <!-- 表格部分 -->
+    <div class="container">
+        <div class="data-item" style="font-weight: bold;">用户名：<span>{{ username }}</span></div>
+        <div class="data-item">平均身高：<span>{{ averageHeight }}cm ({{ heightStatus }})</span></div>
+        <div class="data-item">平均体重：<span>{{ averageWeight }}kg ({{ weightStatus }})</span></div>
+        <div class="data-item">平均左眼视力：<span>{{ averageLefteye }}</span> ({{ lefteyeStatus }})</div>
+        <div class="data-item">平均右眼视力：<span>{{ averageRighteye }}</span> ({{ righteyeStatus }})</div>
+        <div class="data-item">平均血压：<span>{{ averageBloodPressure }}mmHg ({{ bloodPressureStatus }})</span></div>
+        <div class="data-item">平均心率：<span>{{ averageHeartRate }}次/分钟 ({{ heartRateStatus }})</span></div>
+        <div class="data-item">平均血氧：<span>{{ averageBloodOxygen }}% ({{ bloodOxygenStatus }})</span></div>
+    </div>
+
+    <!-- 推荐内容部分 -->
+    <div v-if="!isHealthy()" style="margin-left: 500px;" class="data-item">
+    <div style="font-size: 20px;color: red;font-weight: bold;">根据您的体检记录平均数据显示，以下项目存在异常：</div>
+
+<template v-if="unHealthyMessage().length > 0">
+    <div v-for="message in unHealthyMessage()" :key="message" :style="{ fontSize: '17px', marginTop: '15px' }">
+        <div v-if="message === '血压异常'" style="margin-top: 45px;" >
+			<div style="margin-left: 180px;"><span style="font-size: 25px;color: red">血压异常</span><br> 您也许需要以下内容：</div>
+            <div style="display: flex;flex-direction: row;margin-top: 15px;">
+                <div style="display: flex;flex-direction:column;margin-left: -453px;">
+                    <div style="font-weight: bold;color: #3eb8e9;">文章推荐</div>
+                    <div><a href="http://127.0.0.1:8000/article/15"><img src="http://127.0.0.1:8080/images/zc/xueya.png" width="350px" height="250px"></a></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">生活中如何控制我们的血压</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 25px;">
+                    <div style="font-weight: bold;color: #00bc6f">专业咨询</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/xueya2.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">心血管科：专业问诊</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 25px;">
+                    <div style="font-weight: bold;color: red">家用医疗</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/xueya3.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">家用医疗：自测血压</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 25px;">
+                    <div style="font-weight: bold;color: #997403">饮食推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/xueya4.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">饮食推荐：控制血压</a></div>
+                </div>
+
+            </div>
+        </div>
+		<div v-else-if="message === '心率异常'" style="margin-top: 45px;" >
+			<div style="margin-left: 180px;"><span style="font-size: 25px;color: red">血压异常</span><br> 您也许需要以下内容：</div>
+            <div style="display: flex;flex-direction: row;margin-top: 15px;">
+                <div style="display: flex;flex-direction:column;margin-left: -450px;">
+                    <div style="font-weight: bold;color: #3eb8e9">文章推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/xueya.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">生活中如何控制我们的血压</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;">
+                    <div style="font-weight: bold;color: #00bc6f">专业咨询</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/xueya2.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">心血管科：专业问诊</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div v-else-if="message === '体重异常'" style="margin-top: 45px;" >
+			<div style="margin-left: 180px;"><span style="font-size: 25px;color: blue">体重异常</span><br> 您也许需要以下内容：</div>
+            <div style="display: flex;flex-direction: row;margin-top: 15px;">
+                <div style="display: flex;flex-direction:column;margin-left: -450px;">
+                    <div style="font-weight: bold;color: #3eb8e9">文章推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/tz.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/17">生活中控制体重的小技巧</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 35px;">
+                    <div style="font-weight: bold;color: #00bc6f">专业咨询</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/tz2.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">营养科：专业问诊</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 35px;">
+                    <div style="font-weight: bold;color: #3eb8e9">文章推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/tz3.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">体重的标准划分</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 35px;">
+                    <div style="font-weight: bold;color: #997403">饮食推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/tz4.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">饮食推荐：控制体重</a></div>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="message === '视力不佳'" style="margin-top: 45px;" >
+			<div style="margin-left: 180px;"><span style="font-size: 25px;color: blue">视力不佳</span><br> 您也许需要以下内容：</div>
+            <div style="display: flex;flex-direction: row;margin-top: 15px;">
+                <div style="display: flex;flex-direction:column;margin-left: -450px;">
+                    <div style="font-weight: bold;color: #3eb8e9">文章推荐</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/sl.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/17">如何预防近视？</a></div>
+                </div>
+                <div style="display: flex;flex-direction:column;margin-left: 35px;">
+                    <div style="font-weight: bold;color: #00bc6f">专业咨询</div>
+                    <div><img src="http://127.0.0.1:8080/images/zc/sl2.png" width="350px" height="250px"></div>
+                    <div style="font-size: 25px;margin-top: 15px;"><a href="http://127.0.0.1:8000/article/15">眼科：专业问诊</a></div>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="message === '血氧饱和度异常'">
+            血氧饱和度异常 - 您也许需要以下内容：
+            <div>提高血氧饱和度的方法</div>
+        </div>
+    </div>
+</template>
+</div>
+</div>
+
+<!-- 没有体检记录提示 -->
+<div v-else style="margin-left: 700px;margin-top: 35px;font-size: 25px;height: 250px;">
+    没有体检记录
+</div>
+
+
+        	<div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    粤ICP备*******8号</p>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+
+    <script type="text/javascript" src="http://127.0.0.1:8080/js/tijian_fenxi.js"></script>
+</body>
+</html>

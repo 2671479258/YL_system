@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！-->
+    <title>社区医疗服务系统-后端管理系统</title>
+
+    <!-- Bootstrap -->
+<link rel="stylesheet" href="http://127.0.0.1:8000/templates/css/bootstrap.min.css" />
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+     <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+      <style>
+       body {
+
+    background-image: url('/media/images/pink.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+    </style>
+  </head>
+  <body>
+   <!--分页名称-->
+   <h1  style="height: 40px;width: 1000px;margin: 7px 13px;background-size: contain;">
+   <a href="http://127.0.0.1:8080/index.html" style="height: 10px;"><div style="padding: 0 40px;color:#337ab7"><img src="/media/images/logo02.png"> </div></a>
+    </h1>
+    <h1 style="font-weight: bold;" class="text-center">社区医疗服务系统-后台管理系统</h1>
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 获取cookie中的用户名
+      var username = getCookie('username');
+
+      // 更新div中的内容，如果没有用户名，则默认为'Guest'
+      var usernameDiv = document.querySelector('#usernameDiv');
+      if (usernameDiv) {
+        usernameDiv.innerHTML = '用户名：' + (username || 'Guest');
+      }
+
+      // 获取cookie值的函数
+      function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.indexOf(name + '=') === 0) {
+            return cookie.substring(name.length + 1);
+          }
+        }
+        return null;
+      }
+    });
+  </script>
+   <div id="usernameDiv" style="margin-left: 1333px;font-size: 18px;font-weight: bold;">用户名：</div>
+    <!--这是导航栏-->
+    {% include "nav.html" %}
+   <!--这是侧栏-->
+   <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-3" style="width:220px;">
+<!--            <ul class="nav nav-sidebar">-->
+<!--                <li style="font-weight: bold;"><a href="/user_list/">用户信息列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/tijian_list/">体检记录列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/department_list/">科室信息列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/doctor_list/">医生信息列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/medicine_list/">药品信息列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/order_list/">门诊预约列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/goods_list/">商城订单列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/tj_order_list/">体检预约列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/article_list/">文章管理列表</a></li>-->
+<!--                <li style="font-weight: bold;"><a href="/tj_order_list_0/">体检预约审核</a></li>-->
+<!--            </ul>-->
+        </div>
+  <!--标题栏-->
+ {% block bar %}
+
+ {% endblock %}
+ <!--主程序-->
+{% block main%}
+
+{% endblock %}
+
+  <!--这是页码-->
+    <nav aria-label="Page navigation">
+
+</nav>
+
+  </body>
+</html>

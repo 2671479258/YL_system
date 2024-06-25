@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">科室管理页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">科室管理<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+{#                            <input type="text" class="form-control" placeholder="Search for...">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button class="btn btn-default" type="button">搜索</button>#}
+{#                            </span>#}
+            </div>
+      </div>
+{% endblock %}
+
+{% block main %}
+    <form action="" method="post">
+        <p>
+            <input type="hidden" name="id" value="{{ department_obj.id }}">
+        </p>
+        <p>
+            科室名称:<input type="text" name="department_name" value="{{ department_obj.department_name }}">
+        </p>
+        <p>
+            科室地址:<input type="text" name="department_area" value="{{ department_obj.department_area }}">
+        </p>
+
+    <p>
+            科室简介:<input type="text" name="department_introduce" value="{{ department.department_introduce  }}">
+        </p>
+
+
+    <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+
+
+
+
+
+
+{% endblock %}

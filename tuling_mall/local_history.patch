@@ -1,0 +1,32 @@
+Index: apps/guanli/templates/search_article.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/apps/guanli/templates/search_article.html b/apps/guanli/templates/search_article.html
+--- a/apps/guanli/templates/search_article.html	
++++ b/apps/guanli/templates/search_article.html	(date 1712472662762)
+@@ -1,5 +1,5 @@
+ {% extends "base.html" %}
+-{% load mytags %}
++
+ {% block bar %}
+       <div class="col-md-9" style=  "justify-content: flex-end;">
+             <h1 class="page-header">医生管理页面</h1>
+@@ -9,7 +9,15 @@
+             <div  class="panel-body">
+                 <div class="row" style="margin-bottom: 15px">
+                     <div class="col-md-4">
+-                
++                        <div class="input-group">
++                            <form action="{% url 'search_article' %}" method="post" id="search_article">
++            <div class="form" style="display: flex;">
++                            <input type="text" class="form-control" placeholder="输入医生姓名" name="search_article_name">
++                            <span class="input-group-btn">
++                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
++                            </span>
++            </div></form>
++            </div>
+       </div>
+  <div class="col-md-2 pull-right">
+         <a class="btn btn-success" href="/add_article/">新增医生</a>

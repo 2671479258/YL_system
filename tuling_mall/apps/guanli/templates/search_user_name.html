@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">用户信息页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">用户信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <form action="{% url 'search_user' %}" method="post" id="search_user">
+            <div class="form" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="输入用户姓名" name="search_user_name">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
+                            </span>
+            </div></form>
+            </div>
+      </div>
+     <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_user/">新增用户信息</a>
+        </div>
+
+
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>用户id</th>
+            <th>姓名</th>
+            <th>用户名</th>
+            <th>手机号</th>
+            <th>密码</th>
+
+        </tr>
+    </thead>
+    <tbody>
+{% for user_obj in user_search_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+
+    <td>{{ user_obj.id }}</td>
+        <td>{{ user_obj.real_name }}</td>
+    <td>{{ user_obj.username }}</td>
+    <td>{{ user_obj.mobile }}</td>
+    <td>{{ user_obj.password }}</td>
+
+        <td>
+            <a href="/edit_user/?id={{user_obj.id}}">修改</a>
+            <a href="/delete_user/?id={{user_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

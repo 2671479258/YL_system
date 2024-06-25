@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">用户信息页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">用户信息<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <form action="{% url 'search_user' %}" method="post" id="search_user">
+            <div class="form" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="输入用户姓名" name="search_user_name">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit" id="submit">搜索</button>
+                            </span>
+            </div></form>
+                        </div>
+                    </div>     <div class="col-md-2 pull-right">
+        <a class="btn btn-success" href="/add_user/">新增用户信息</a>
+        </div>
+
+
+{% endblock %}
+
+{% block main %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+
+            <th>用户id</th>
+            <th>姓名</th>
+            <th>用户名</th>
+            <th>手机号</th>
+            <th>密码</th>
+
+        </tr>
+    </thead>
+    <tbody>
+{% for user_obj in page_obj %}
+    <tr>
+
+
+    <td>{{ user_obj.id }}</td>
+        <td>{{ user_obj.real_name }}</td>
+    <td>{{ user_obj.username }}</td>
+    <td>{{ user_obj.mobile }}</td>
+    <td>{{ user_obj.password }}</td>
+
+        <td>
+            <a href="/edit_user/?id={{user_obj.id}}">修改</a>
+            <a href="/delete_user/?id={{user_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+                    <nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li>
+            <a href="?page=1" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li>
+            <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span aria-hidden="true">&laquo;&laquo;</span>
+        </li>
+        <li class="disabled">
+            <span aria-hidden="true">&laquo;</span>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="active"><span>{{ num }} <span class="sr-only">(current)</span></span></li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li><a href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+            <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li>
+            <a href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span aria-hidden="true">&raquo;</span>
+        </li>
+        <li class="disabled">
+            <span aria-hidden="true">&raquo;&raquo;</span>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock %}

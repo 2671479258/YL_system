@@ -1,0 +1,40 @@
+
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>序号</th>
+            <th>用户id</th>
+            <th>体检日期</th>
+            <th>身高</th>
+            <th>体重</th>
+            <th>左眼视力</th>
+            <th>右眼视力</th>
+            <th>血压</th>
+            <th>心率</th>
+            <th>血氧饱和度</th>
+
+        </tr>
+    </thead>
+    <tbody>
+{% for tijian_obj in tijian_obj_list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+    <td>{{ tijian_obj.user_id }}</td>
+    <td>{{ tijian_obj.tijian_Data }}</td>
+    <td>{{ tijian_obj.height }}</td>
+    <td>{{ tijian_obj.weight }}</td>
+    <td>{{ tijian_obj.lefteye }}</td>
+    <td>{{ tijian_obj.righteye }}</td>
+        <td>{{ tijian_obj.blood_oxygen }}</td>
+        <td>{{ tijian_obj.blood_pressure }}</td>
+        <td>{{ tijian_obj.heart_rate }}</td>
+
+        <td>
+            <a href="/edit_tijian/?id={{tijian_obj.id}}">修改</a>
+            <a href="/delete_tijian/?id={{tijian_obj.id}}">删除</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

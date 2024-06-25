@@ -1,0 +1,90 @@
+{% extends "dbase.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">新增药品页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">新增药品<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+
+      </div>
+        <div class="col-md-2 pull-right">
+
+        </div>
+{% endblock %}
+
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="panel-body">
+        <p>
+            商品名称 <input type="text" name="name">
+        </p>
+
+        <p>
+            副标题 <input type="text" name="caption">
+        </p>
+
+        <p>
+            商品SPU
+            <select name="spu">
+                {% for spu in spus %}
+                    <option value="{{ spu.id }}">{{ spu.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            商品类别
+            <select name="category">
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            单价 <input type="number" name="price" step="0.01">
+        </p>
+
+        <p>
+            进价 <input type="number" name="cost_price" step="0.01">
+        </p>
+
+        <p>
+            市场价 <input type="number" name="market_price" step="0.01">
+        </p>
+
+        <p>
+            库存 <input type="number" name="stock">
+        </p>
+
+        <p>
+            销量 <input type="number" name="sales">
+        </p>
+
+        <p>
+            评价数 <input type="number" name="comments">
+        </p>
+
+        <p>
+            是否上架销售
+            <select name="is_launched">
+                <option value="true">是</option>
+                <option value="false">否</option>
+            </select>
+        </p>
+
+        <p>
+            默认图片 <input type="file" name="default_image">
+        </p>
+
+        <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+    </div>
+</form>
+{% endblock %}

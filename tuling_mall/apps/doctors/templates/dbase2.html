@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！-->
+
+    <title>社区医疗服务系统-医生端</title>
+      <style>
+       body {
+
+    background-image: url('/media/images/yellow.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+            a {
+    text-decoration: none; /* 去掉下划线 */
+    color: inherit; /* 继承父元素的颜色，如果有的话 */
+}
+
+a:hover {
+    color: blue; /* 悬停时链接颜色变为灰色 */
+}
+a img {
+    transition: transform 0.3s ease, background-color 0.3s ease; /* 添加过渡效果，包括变换和背景颜色 */
+}
+
+a:hover img {
+        background-color: #7171d5; /* 悬停时背景颜色变为蓝色 */
+
+    transform: scale(1.1); /* 悬停时图片放大 1.1 倍 */
+}
+    </style>
+
+
+
+    <!-- Bootstrap -->
+<link rel="stylesheet" href="http://127.0.0.1:8000/templates/css/bootstrap.min.css" />
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+     <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   <!--分页名称-->
+   <h1  style="height: 40px;width: 1000px;margin: 7px 13px;background-size: contain;">
+   <a href="http://127.0.0.1:8080/index.html" style="height: 10px;"><div style="padding: 0 40px;color:#337ab7"><img src="/media/images/logo02.png"> </div></a>
+    </h1>
+    <h1 class="text-center">社区医疗服务系统-医生端</h1>
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 获取cookie中的用户名
+      var username = getCookie('username');
+
+      // 更新div中的内容，如果没有用户名，则默认为'Guest'
+      var usernameDiv = document.querySelector('#usernameDiv');
+      if (usernameDiv) {
+        usernameDiv.innerHTML = '用户名：' + (username || 'Guest');
+      }
+
+      // 获取cookie值的函数
+      function getCookie(name) {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.indexOf(name + '=') === 0) {
+            return cookie.substring(name.length + 1);
+          }
+        }
+        return null;
+      }
+    });
+  </script>
+   <div id="usernameDiv" style="margin-left: 1300px;font-size: 18px">用户名：</div>
+    <!--这是导航栏-->
+    {% include "dnav.html" %}
+   <!--这是侧栏-->
+
+
+
+  <!--标题栏-->
+ {% block bar %}
+
+ {% endblock %}
+ <!--主程序-->
+{% block main%}
+
+{% endblock %}
+
+
+
+  </body>
+</html>

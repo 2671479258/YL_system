@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f4f4f9; /* 更加柔和的背景颜色 */
+            font-family: Arial, sans-serif; /* 设置全局字体 */
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #ffffff; /* 背景颜色 */
+            border-bottom: 2px solid blue;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+            margin: 0;
+        }
+
+        #header img {
+            height: 60px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 44px;
+            color: #333;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        .nav div {
+            padding: 0 15px;
+        }
+
+        .nav div:nth-child(1) {
+            color: #25aa22;
+        }
+
+        .nav div:nth-child(2) {
+            color: #a78a16;
+        }
+
+        .nav div:nth-child(3) {
+            color: #065fd2;
+        }
+
+        .nav div:nth-child(4) {
+            color: #ba034d;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .column {
+            width: 100%;
+            background-color: #ffffff; /* 背景颜色 */
+            border: 2px solid #e0e0e0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+        }
+
+        .column-title {
+            text-align: center;
+            font-size: 36px;
+            color: green;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .record {
+            margin: 20px 0;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0; /* 添加分隔线 */
+        }
+
+        .record-title {
+            font-size: 24px;
+            color: #fb7299;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .record-introd {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .record a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header">
+        <a href="http://127.0.0.1:8080/article.html" class="login_logo"><img src='/media/images/logo02.png' alt="Logo"></a>
+    </div>
+
+    <div class="title">健康专栏</div>
+
+    <div class="nav">
+        <div>养生</div>
+        <div>科普</div>
+        <div>护理</div>
+        <div>知识</div>
+    </div>
+
+    <div class="content">
+        <div class="column">
+            <div class="column-title">养生专栏</div>
+
+            {% for record in ALL_YS_records_list %}
+            <div class="record">
+                <div class="record-title">
+                    <a href="http://127.0.0.1:8000/article/{{ record.id }}">{{ record.title }}</a>
+                </div>
+                <div class="record-introd">
+                    {{ record.introd }}&nbsp;&nbsp;&nbsp;&nbsp;发布日期：{{ record.release_data }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+{% extends "dbase.html" %}
+{% load mytags %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">药品修改页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">药品修改<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+
+
+{% endblock %}
+
+{% block main %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p><input type="hidden" name="id" value="{{ sku.id }}"></p>
+
+    <p>
+        名称: <input type="text" name="name" value="{{ sku.name }}">
+    </p>
+    <p>
+        副标题: <input type="text" name="caption" value="{{ sku.caption }}" style="width: 300px">
+    </p>
+    <p>
+        商品: <input type="text" name="spu" value="{{ sku.spu_id }}">
+    </p>
+    <p>
+        从属类别: <input type="text" name="category" value="{{ sku.category_id }}">
+    </p>
+    <p>
+        单价: <input type="text" name="price" value="{{ sku.price }}">
+    </p>
+    <p>
+        进价: <input type="text" name="cost_price" value="{{ sku.cost_price }}">
+    </p>
+    <p>
+        市场价: <input type="text" name="market_price" value="{{ sku.market_price }}">
+    </p>
+    <p>
+        库存: <input type="text" name="stock" value="{{ sku.stock }}">
+    </p>
+    <p>
+        销量: <input type="text" name="sales" value="{{ sku.sales }}">
+    </p>
+    <p>
+        评价数: <input type="text" name="comments" value="{{ sku.comments }}">
+    </p>
+    <p>
+        是否上架销售: <input type="checkbox" name="is_launched" {% if sku.is_launched %}checked{% endif %}>
+    </p>
+    <p>
+        默认图片: <input type="file" name="default_image">
+        {% if sku.default_image %}
+            <img src="http://127.0.0.1:8080{{ sku.default_image.url }}" alt="默认图片" width="250px">
+        {% endif %}
+    </p>
+
+    <p>
+        <button type="submit" class="btn">提交</button>
+    </p>
+</form>
+{% endblock %}

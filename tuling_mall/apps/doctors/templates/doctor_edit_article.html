@@ -1,0 +1,58 @@
+{% extends "dbase.html" %}
+{% block bar %}
+      <div class="col-md-9" style=  "justify-content: flex-end;">
+            <h1 class="page-header">修改文章页面</h1>
+        <div class="panel panel-primary">
+                <!-- Default panel contents -->
+        <div class="panel-heading">修改文章<i class="fa fa-thumb-tack pull-right"></i></div>
+            <div  class="panel-body">
+                <div class="row" style="margin-bottom: 15px">
+                    <div class="col-md-4">
+
+      </div>
+        <div class="col-md-2 pull-right">
+
+        </div>
+{% endblock %}
+                    {% block main %}
+    <form action="" method="post">
+        <p>
+            <input type="hidden" name="id" value="{{ article_obj.id }}">
+        </p>
+        <p>
+            文章标题:<input type="text" name="title" value="{{ article_obj.title }}">
+        </p>
+        <p>文章作者:
+        <select name="doctor">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.doctorname }}</option>
+            {% endfor %}
+        </select>
+    </p>
+        <p>
+            文章简介:<input type="text" name="introd" value="{{ article_obj.introd }}">
+        </p>
+
+        <p>文章类型:
+        <select name="category_id">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+    </p>
+      <p>
+        文章内容<br>
+        <textarea type="text" name="content" style="width: 800px; height: 400px;">{{ article_obj.content }}</textarea>
+    </p>
+
+
+    <p>
+            <button type="submit" class="btn">提交</button>
+        </p>
+
+
+
+
+
+
+{% endblock %}

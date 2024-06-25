@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>社区医疗-用户中心</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <style>
+        body {
+            background-color: #f0f4f8;
+            background-image: url('/images/userbg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+
+        .header_con, .search_bar, .footer {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search_bar .sub_page_name {
+
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 40px;
+        }
+
+        .main_con {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .left_menu_con {
+            width: 200px;
+            margin-right: 20px;
+        }
+
+        .tijian_con {
+            flex: 1;
+        }
+
+        .tijian_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tijian_table th, .tijian_table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .tijian_table th {
+            background-color: #00796b;
+            color: white;
+        }
+
+        .tijian_table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .tijian_table tbody tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #666;
+            background-color: #f0f4f8;
+        }
+
+        .foot_link a {
+            color: #00796b;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <div class="header_con">
+            <div class="header">
+                <div class="welcome fl">欢迎来到社区医疗服务系统!</div>
+                <div class="fr">
+                    <div v-if="username" class="login_btn fl">
+                        欢迎您：<em>{{ username }}</em>
+                        <span>|</span>
+                        <a @click="logoutfunc">退出</a>
+                    </div>
+                    <div v-else class="login_btn fl">
+                        <a href="login.html">登录</a>
+                        <span>|</span>
+                        <a href="register.html">注册</a>
+                    </div>
+                    <div class="user_link fl">
+                        <span>|</span>
+                        <a href="user_center_info.html">用户中心</a>
+                        <span>|</span>
+                        <a href="cart.html">我的购物车</a>
+                        <span>|</span>
+                        <a href="user_center_order.html">我的订单</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search_bar clearfix">
+            <a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+            <div class="sub_page_name fl">&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
+            <form method="get" action="/search.html" class="search_con fr mt40">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+        </div>
+        <div class="main_con clearfix">
+            <div class="left_menu_con clearfix">
+                <h3>用户中心</h3>
+                <ul>
+                    <li><a href="user_center_info.html">· 个人信息</a></li>
+                    <li><a href="user_center_order.html">· 我的订单</a></li>
+                    <li><a href="user_center_site.html">· 收货地址</a></li>
+                    <li><a href="user_center_pass.html">· 修改密码</a></li>
+                    <li><a href="user_center_tijian.html" class="active">· 体检记录</a></li>
+                    <li><a href="user_center_DO.html">· 问诊订单</a></li>
+                    <li><a href="user_center_TO.html">· 体检预约</a></li>
+                </ul>
+            </div>
+            <!-- New Section for Tijian Records -->
+            <div class="tijian_con" v-if="tijianRecords.length > 0">
+                <h3>体检记录</h3>
+                <table class="tijian_table">
+                    <thead>
+                        <tr>
+                            <th>体检时间</th>
+                            <th>身高</th>
+                            <th>体重</th>
+                            <th>左眼视力</th>
+                            <th>右眼视力</th>
+                            <th>血压</th>
+                            <th>心率</th>
+                            <th>血氧饱和度</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="record in tijianRecords" :key="record.id">
+                            <td>{{ record.tijian_Date }}</td>
+                            <td>{{ record.height }}</td>
+                            <td>{{ record.weight }}</td>
+                            <td>{{ record.lefteye }}</td>
+                            <td>{{ record.righteye }}</td>
+                            <td>{{ record.blood_pressure }}</td>
+                            <td>{{ record.heart_rate }}</td>
+                            <td>{{ record.blood_oxygen }}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+        <div v-else>
+            <p>当前没有体检信息</p>
+        </div>
+
+        <!-- ... (existing code) ... -->
+    </div>
+        <div class="footer">
+        <div class="foot_link">
+            <a href="#">关于我们</a>
+            <span>|</span>
+            <a href="#">联系我们</a>
+            <span>|</span>
+            <a href="#">招聘人才</a>
+            <span>|</span>
+            <a href="#">友情链接</a>
+        </div>
+        <p>CopyRight © 2024 xxx有限公司 All Rights Reserved</p>
+        <p>电话：010-****888    ICP备*******8号</p>
+    </div>
+             <script type="text/javascript" src="http://127.0.0.1:8080/js/user_center_tijian.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+
+</body>
+</html>

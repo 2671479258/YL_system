@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>健康专栏-搜索结果</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/host.js"></script>
+    <script type="text/javascript" src="js/vue-2.5.16.js"></script>
+    <script type="text/javascript" src="js/axios-0.18.0.min.js"></script>
+<style>
+    ul.goods_type_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.goods_type_list li {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+ul.goods_type_list li h4 {
+    margin-bottom: 5px;
+}
+
+ul.goods_type_list li .operate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul.goods_type_list li .operate .prize {
+    color: #f14040;
+    font-weight: bold;
+}
+.custom-link {
+    color: black; /* 深蓝色 */
+    text-decoration: none; /* 移除下划线，使其看起来更像普通文本 */
+}
+
+.custom-link:hover {
+    /* 如果需要，在鼠标悬停时定义链接的颜色（可选） */
+    color: #000080; /* 深蓝色的变体，可根据需要更改 */
+}
+#head1 {
+    flex-direction: column;
+    display: flex;
+    width: 20%;
+    height: 600px;
+    margin-left: 50px;
+    border: 2px solid;
+    border-bottom-color: blue;
+    background-color: rgba(255, 255, 255, 0.8); /* 调整最后一个参数 (0.0 - 1.0) 控制透明度 */
+    padding: 20px; /* 添加一些内边距以提高可读性 */
+}
+
+
+
+        #ak {
+    flex-direction: column;
+    display: flex;
+    width: 20%;
+    height: 600px;
+    margin-left: 50px;
+    border: 2px solid;
+    border-bottom-color: blue;
+    background-color: rgba(255, 255, 255, 0.8); /* 调整最后一个参数 (0.0 - 1.0) 控制透明度 */
+    padding: 20px; /* 添加一些内边距以提高可读性 */
+}
+
+
+
+        #app1 {
+    flex-direction: column;
+    display: flex;
+    width: 20%;
+    height: 600px;
+    margin-left: 50px;
+    border: 2px solid;
+    border-bottom-color: blue;
+    background-color: rgba(255, 255, 255, 0.8); /* 调整最后一个参数 (0.0 - 1.0) 控制透明度 */
+    padding: 20px; /* 添加一些内边距以提高可读性 */
+}
+
+
+        .custom-h1 {
+    font-size: 28px;
+
+    /* 其他样式属性可以在这里添加 */
+}
+        .custom-link {
+    color: inherit;
+    /* 其他样式属性可以在这里添加 */
+}
+   body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, rgba(255, 200, 200, 0.8), rgba(200, 255, 255, 0.8)), url('images/G.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+</head>
+<body>
+<div id="app8" v-cloak>
+<div style="height:150px;clear: both;overflow: hidden;margin-bottom: 30px;margin-top: -5px;">
+    <h1  id='head1' style="height: 74px;width: 1460px;margin: 5px 13px;border:2px solid;">
+      <a href="index.html" class="login_logo" style="margin-top: 5px"><img src="images/logo02.png"></a>
+    </h1>
+  </div>
+<div style="display: flex; width:70%; margin: 30px ;">
+    <div style="flex:1; display: flex;margin-top: 10px;margin-left: 54px;" >
+
+        <div style="margin-left: 20px"><img src="images/jk.png" style="width: 100px; height: 98px;"></div>
+        <div style="width: 200px;font-size:39px;color:#00B51D;margin-left: -5px;margin-top: 19px">健康专栏</div>
+
+
+
+        <div  style="padding-left: 1px;margin-top: 1px;margin-left: -36px" >
+            <div class="search_wrap fl">
+			<form method="get" action="/user_article_search.html" class="search_con">
+                <input type="text" class="input_text fl" name="q" placeholder="搜索文章">
+                <input type="submit" class="input_btn fr" name="" value="搜索">
+            </form>
+
+		</div>
+        </div>
+
+    <div style="padding-top:8px;margin-left: 63px; display: flex;font-size: 20px;justify-content: flex-end;margin-top: 17px"  >
+        <div style="padding: 0 10px;color:#25aa22">养生</div>
+        <div style="padding: 0 10px;color:#a78a16">科普</div>
+        <div style="padding: 0 10px;color:#065fd2">护理</div>
+        <div style="padding: 0 10px;color:#ba034d">知识</div>
+
+    </div>
+    </div>
+</div>
+
+
+<div style="flex-direction: row; display: flex;  margin-bottom: 20px;">
+    <div style="flex-direction: column; display: flex; width: 100%; height: auto;  margin-bottom: 20px;">
+        <div style="display: flex; margin-top: 1px; flex-direction: column;">
+            <div style="margin-left: 39%; width: 600px; font-size: 30px; color: black; margin-top: -1px;">搜索“[[q]]”得到的结果</div>
+        </div>
+
+
+    </div>
+</div>
+     <div class="r_wrap fr clearfix">
+<!--            <div class="sort_bar">-->
+<!--                <a @click="on_sort('-create_time')" :class="ordering=='-create_time'?'active':''">默认</a>-->
+<!--                <a @click="on_sort('price')" :class="ordering=='price'?'active':''">价格</a>-->
+<!--                <a @click="on_sort('-sales')" :class="ordering=='-sales'?'active':''">人气</a>-->
+<!--            </div>-->
+
+            <ul class="goods_type_list clearfix" style="margin-left: -124px">
+                <li v-for="article in articles">
+                    <h1 class="custom-h1" style="color:#27a"><a class="custom-link" :href="'http://127.0.0.1:8000/article/' + article.id">[[ article.title ]]</a> </h1>
+                    <div class="operate" style="margin-left: 5px">
+                        <span class="prize">[[article.introd]]</span>
+
+                    </div>
+                </li>
+            </ul>
+            <div class="pagenation" style="margin-left: -600px">
+                <a v-show="previous" @click="on_page(previous)">上一页</a>
+                <a v-for="num in count" @click="on_page(num)" :class="num==page?'active':''">[[num]]</a>
+                <a v-show="next" @click="on_page(next)">下一页></a>
+            </div>
+        </div>
+
+
+    </div>
+<script type="text/javascript" src="http://127.0.0.1:8080/js/common.js"></script>
+<script type="text/javascript" src="js/article_search.js"></script>
+
+
+</body>
+</html>
